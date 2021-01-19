@@ -26,7 +26,7 @@ export default {
     }
   },
 
-  comuted: {
+  computed: {
     ...mapGetters([
       'TESTS'
       ])

@@ -15,7 +15,7 @@ let store = new Vuex.Store ({
 	},
 	actions: {
 		GET_TEST_FROM_API({commit}) {
-			return axios('http://localhost:3000/test', {
+			return axios('http://localhost:3000/tests', {
 				method: "GET"
 			})
 			.then((tests) => {
