@@ -23,5 +23,5 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-###Запуск хранилища
-json-server —watch db.json запуск хранилища
+### Запуск хранилища
+json-server —watch db.json
