@@ -5,6 +5,7 @@ import LovelyTasks from './pages/LovelyTasks'
 import MyTasks from './pages/MyTasks.vue'
 import Home from './pages/Home.vue'
 import ReportCard from './pages/ReportСard.vue'
+import Test from './pages/OpenTests/Index_test.vue'
 
 
 
@@ -17,6 +18,7 @@ export default new VueRouter ({
 	},
 	{
 		path: '/tests',
+		name: 'tests',
 		component:Tests
 	},
 	{
@@ -34,6 +36,11 @@ export default new VueRouter ({
 	{
 		path: '/report_card',
 		component:ReportCard
+	},
+	{
+		path: '/test/:id',
+		name: 'test',
+		component: Test
 	}
 
 	],

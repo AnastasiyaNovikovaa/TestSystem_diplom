@@ -4,8 +4,12 @@
   <p class="sub">Предмет</p>
   <p class="second-layer">{{test_data.subject}}</p>
   <p class="sub">Дедлайн</p>
-  <p class="second-layer">{{test_data.date}}</p>
-  <button class="button" @click="OpenStatic">СТАТИСТИКА</button>
+  <p class="second-layer">{{test_data.date_close}}</p>
+  <!--<button><router-link
+    :to="{name: 'test', params: { id: test_data.id} }"
+   class="button">СТАТИСТИКА</router-link></button>-->
+
+   <button type="button" class="button" @click="$router.push({name: 'test', params: { id: test_data.id-1} })">СТАТИСТИКА</button>
   </div>
 </template>
 
@@ -77,7 +81,7 @@ margin-bottom: 12px;
 }
 
 .button {
-  height: 32px;
+height: 32px;
 width: 167px;
 border-radius: 5px;
 background: #6C5DD3;

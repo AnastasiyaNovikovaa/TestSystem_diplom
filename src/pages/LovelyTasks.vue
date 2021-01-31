@@ -1,7 +1,6 @@
 <template>
-  <div id="app">
-    <Header/>
-    <SideBar/>
+  <div>
+    
     <p>Избранные задачи</p>
   </div>
 </template>

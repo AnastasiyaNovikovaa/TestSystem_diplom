@@ -2,6 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+const config = {
+  baseURL: 'http://url:port',
+  timeout: 10000,
+}
+
+export const instance = axios.create(config);
+
 Vue.use(Vuex);
 
 let store = new Vuex.Store ({
@@ -15,9 +22,11 @@ let store = new Vuex.Store ({
 	},
 	actions: {
 		GET_TEST_FROM_API({commit}) {
+			
 			return axios('http://localhost:3000/tests', {
 				method: "GET"
 			})
+			//return instance.get(/tests/)
 			.then((tests) => {
 				commit('SET_TESTS_TO_STATE', tests.data);
 				return tests;
