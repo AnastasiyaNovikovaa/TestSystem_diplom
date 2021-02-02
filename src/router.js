@@ -7,6 +7,7 @@ import Home from './pages/Home.vue'
 import ReportCard from './pages/ReportСard.vue'
 import Test from './pages/OpenTests/Index_test.vue'
 import Entrance from './pages/Entrance.vue'
+import Registration from './pages/Registration.vue'
 
 
 
@@ -56,6 +57,13 @@ export default new VueRouter ({
 		path: '/entrance',
 		name: 'entrance',
 		component: Entrance,
+		meta: { requiresHeaderSideBar: false }
+	},
+
+	{
+		path: '/registration',
+		name: 'registration',
+		component: Registration,
 		meta: { requiresHeaderSideBar: false }
 	}
 

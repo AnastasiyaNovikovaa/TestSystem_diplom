@@ -23,29 +23,24 @@
             </b-container>
           </template>
 
-            <template class="check">
-              
-                <b-form-checkbox
-                  id="checkbox-1"
-                  v-model="status"
-                  name="checkbox-1"
-                  value="accepted"
-                  unchecked-value="not_accepted"
-                >
-                  Запомнить меня
-                </b-form-checkbox>
-              
-            </template>
-          <p class="password">Забыли пароль?</p>
+          <template class="input input_password">
+            <b-container fluid >
+              <b-row class="my-1" v-for="type in types1" :key="type">
+                 <b-col sm="9">
+                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Повторите пароль"></b-form-input>
+                </b-col>
+              </b-row>
+            </b-container>
+          </template>
+           
 
-          <button type="button" class="button button_enter" @click="$router.push({name: 'home'})">ВОЙТИ</button>
+          <button type="button" class="button button_enter" @click="$router.push({name: 'home'})">РЕГИСТРАЦИЯ</button>
          
       
 
       <hr class="hr">
-      <p class="account">Еще нет аккаунта?</p>
-      <a @click="$router.push({name: 'registration'})"><p class="create_account">Создать аккаунт</p></a>
-      
+      <p class="account">Уже зарегистрированы?</p>
+     <a @click="$router.push({name: 'entrance'})"> <p class="enter">Войти</p></a>
 
     </div>
       
@@ -81,7 +76,6 @@ export default {
   height: 207px;
   bottom: 0px;
     position: absolute;
-    z-index: 1;
 }
 
 .main-body {
@@ -109,8 +103,8 @@ export default {
   width: 240px;
   height: 36px;
   margin-left: 50px;
-  margin-bottom: 40px;
-  margin-top: 28px;
+  margin-bottom: 30px;
+  margin-top: 12px;
 }
 
 .custom-control{
@@ -131,12 +125,7 @@ export default {
   color: #808191;
 }
 
-.password:hover {
-	color: #5547BC;
-cursor: pointer;
-}
-
-.create_account{
+.enter{
   width: 124px;
   float: right;
   margin-bottom: 0px;
@@ -148,15 +137,16 @@ cursor: pointer;
   color: #6C5DD3;
   text-decoration: underline;
   margin-right: 36px;
+
   position: absolute;
   z-index: 5;
-  left: 695px;
+  left: 734px;
 
   cursor: pointer;
 }
 
-.create_account:hover{
-	color: #5547BC;
+.enter:hover{
+  color: #5547BC;
 }
 
 .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl{
@@ -208,7 +198,9 @@ cursor: pointer;
   color: #808191;
 }
 
+#input[type="checkbox" i]{
 
+}
 </style>
 
    
