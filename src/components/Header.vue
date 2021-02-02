@@ -19,7 +19,7 @@
           <b-dropdown-item class="hover"> <router-link to="/">Главная</router-link></b-dropdown-item>
           <b-dropdown-item class="hover"> <router-link to="/"> Настройка профиля</router-link></b-dropdown-item>
          <b-dropdown-item> <hr></b-dropdown-item>
-          <b-dropdown-item class="hover"> <router-link to="/"> Выход</router-link></b-dropdown-item>
+          <b-dropdown-item class="hover"> <router-link to="/entrance">Выход</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
   </b-navbar>

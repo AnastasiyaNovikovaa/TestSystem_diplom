@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
-    <SideBar/>
+    <Header v-if="$route.meta.requiresHeaderSideBar"/>
+    <SideBar v-if="$route.meta.requiresHeaderSideBar"/>
     <router-view>
     
     </router-view>

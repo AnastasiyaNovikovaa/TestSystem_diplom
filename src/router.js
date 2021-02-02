@@ -6,6 +6,7 @@ import MyTasks from './pages/MyTasks.vue'
 import Home from './pages/Home.vue'
 import ReportCard from './pages/ReportСard.vue'
 import Test from './pages/OpenTests/Index_test.vue'
+import Entrance from './pages/Entrance.vue'
 
 
 
@@ -14,33 +15,48 @@ export default new VueRouter ({
 	routes: [
 	{
 		path: '',
-		component:Home
+		name: 'home',
+		component:Home,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/tests',
 		name: 'tests',
-		component:Tests
+		component:Tests,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/base_tasks',
-		component:BaseTasks
+		component:BaseTasks,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/lovely_tasks',
-		component:LovelyTasks
+		component:LovelyTasks,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/my_task',
-		component:MyTasks
+		component:MyTasks,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/report_card',
-		component:ReportCard
+		component:ReportCard,
+		meta: { requiresHeaderSideBar: true }
 	},
 	{
 		path: '/test/:id',
 		name: 'test',
-		component: Test
+		component: Test,
+		meta: { requiresHeaderSideBar: true }
+	},
+
+	{
+		path: '/entrance',
+		name: 'entrance',
+		component: Entrance,
+		meta: { requiresHeaderSideBar: false }
 	}
 
 	],

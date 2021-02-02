@@ -2,12 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-const config = {
-  baseURL: 'http://url:port',
-  timeout: 10000,
-}
-
-export const instance = axios.create(config);
 
 Vue.use(Vuex);
 
