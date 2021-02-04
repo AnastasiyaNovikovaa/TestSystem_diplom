@@ -25,6 +25,7 @@ Catalog_cart
 .main-wrapper{
 max-width: 78%;
 margin:0 40px 0 19%; /*260px*/
+padding-bottom: 120px;
 }
 
 .heading{
