@@ -8,6 +8,7 @@ import ReportCard from './pages/ReportСard.vue'
 import Test from './pages/OpenTests/Index_test.vue'
 import Entrance from './pages/Entrance.vue'
 import Registration from './pages/Registration.vue'
+import EditProfile from './pages/EditProfile.vue'
 
 
 
@@ -31,6 +32,7 @@ export default new VueRouter ({
 		component:BaseTasks,
 		meta: { requiresHeaderSideBar: true }
 	},
+	
 	{
 		path: '/lovely_tasks',
 		component:LovelyTasks,
@@ -58,6 +60,13 @@ export default new VueRouter ({
 		name: 'entrance',
 		component: Entrance,
 		meta: { requiresHeaderSideBar: false }
+	},
+
+	{
+		path: '/edit_profile',
+		name: 'edit_profile',
+		component: EditProfile,
+		meta: { requiresHeaderSideBar: true }
 	},
 
 	{

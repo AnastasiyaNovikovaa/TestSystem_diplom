@@ -13,11 +13,11 @@
         <b-nav-item-dropdown right class="divname">
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <img src="../assets/avatarka.png" class="photoava">
+            <img src="../assets/ava_prof.png" class="photoava">
             <div class="name">Гончаров С.П.</div>
           </template>
-          <b-dropdown-item class="hover"> <router-link to="/">Главная</router-link></b-dropdown-item>
-          <b-dropdown-item class="hover"> <router-link to="/"> Настройка профиля</router-link></b-dropdown-item>
+          <b-dropdown-item class="hover"> <router-link to="/" class="main_header">Главная</router-link></b-dropdown-item>
+          <b-dropdown-item class="hover"> <router-link to="/edit_profile">Настройка профиля</router-link></b-dropdown-item>
          <b-dropdown-item> <hr></b-dropdown-item>
           <b-dropdown-item class="hover"> <router-link to="/entrance">Выход</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
@@ -64,6 +64,11 @@ line-height: 150%;
 hr {
   border: 1px solid #E3EDF4;
   margin: 0;
+}
+
+.photoava{
+  height: 44px;
+  width: 44px;
 }
 
 /*Выпадашка меню*/
@@ -142,4 +147,18 @@ margin-top: 4px;
   color: red;
 }
 
+.main_header.router-link-exact-active{
+  color: #808191;
+  background: white;
+  border-radius: 0px;
+  position: relative;
+  left: 0px;
+}
+
+.mr-sm-2:focus{
+    color: #495057;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: none;
+  }
 </style>

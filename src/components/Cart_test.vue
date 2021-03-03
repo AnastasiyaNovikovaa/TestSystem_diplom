@@ -9,11 +9,13 @@
     :to="{name: 'test', params: { id: test_data.id} }"
    class="button">СТАТИСТИКА</router-link></button>-->
 
-   <button type="button" class="button" @click="$router.push({name: 'test', params: { id: test_data.id-1} })">СТАТИСТИКА</button>
+   <button type="button"  class="button" @click="$router.push({name: 'test', params: { id: test_data.id-1} })">СТАТИСТИКА</button>
   </div>
 </template>
 
 <script>
+
+  
 
 export default {
   name: '',

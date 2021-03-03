@@ -8,13 +8,13 @@
 
      <div class="Select">
   <template>
-    <b-form-select v-model="selected" class="mb-3 icon subject" >
+    <b-form-select v-model="selected3" class="mb-3 icon subject">
       <b-form-select-option :value="null" class="text">Предмет</b-form-select-option>
       <b-form-select-option value="a" class="text">БЖД</b-form-select-option>
       <b-form-select-option value="b" class="text">Менеджмент</b-form-select-option>
-      <b-form-select-option value="b" class="text">Экономика</b-form-select-option>
-      <b-form-select-option value="b" class="text">Физика</b-form-select-option>
-      <b-form-select-option value="b" class="text">Механика</b-form-select-option>
+      <b-form-select-option value="c" class="text">Экономика</b-form-select-option>
+      <b-form-select-option value="d" class="text">Физика</b-form-select-option>
+      <b-form-select-option value="e" class="text">Механика</b-form-select-option>
      
     </b-form-select>
   </template>
@@ -22,7 +22,7 @@
 
 <div class="Select">
   <template>
-    <b-form-select v-model="selected" class="mb-3 icon" >
+    <b-form-select v-model="selected1" class="mb-3 icon" >
       <b-form-select-option :value="null" class="text">Категория</b-form-select-option>
       <b-form-select-option value="a" class="text">Сортировать А-Я</b-form-select-option>
       <b-form-select-option value="b" class="text">Сортировать Я-А</b-form-select-option>
@@ -33,7 +33,7 @@
 
  <div class="Select">
   <template>
-    <b-form-select v-model="selected" class="mb-3 icon" >
+    <b-form-select v-model="selected2" class="mb-3 icon" >
       <b-form-select-option :value="null" class="text">Сложность</b-form-select-option>
       <b-form-select-option value="a" class="text">Лёгкий</b-form-select-option>
       <b-form-select-option value="b" class="text">Средний</b-form-select-option>
@@ -75,31 +75,26 @@ export default {
 
   data() {
       return {
-        selected: null,
+        selected1: null,
+        selected2: null,
+        selected3: null,
         perPage: 10,
         currentPage: 1,
-        fields: ['Задание', 'Предмет', 'Категория', 'Сложность', 'heart'],
+        fields: ['S','Задание', 'Предмет', 'Категория', 'Сложность', 'heart'],
         items: [
-          { isActive: true, Задание: 'Выбрать значение тока при котором человек почувствует легкое покалывание', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: '' },
-          { isActive: true, Задание: 'Освещенность рабочего места при боковом освещении составляет Евн=40 (лк).', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Рассчитать необходимую площадь световых проемов при применении бокового освещения', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: ''  },
-          { isActive: true, Задание: 'Определить необходимое количество ламп накаливания типа Б для светильников', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Сложный', heart: ''  },
-          { isActive: true, Задание: 'Определить необходимое количество люминесцентных ламп дневного света марки', Предмет: 'БЖД', Категория: 'Электричество', Сложность: 'Легкий', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Выбрать значение тока при котором человек почувствует легкое покалывание', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: '' },
-          { isActive: true, Задание: 'Освещенность рабочего места при боковом освещении составляет Евн=40 (лк).', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Рассчитать необходимую площадь световых проемов при применении бокового освещения', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: ''  },
-          { isActive: true, Задание: 'Определить необходимое количество ламп накаливания типа Б для светильников', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Сложный', heart: ''  },
-          { isActive: true, Задание: 'Определить необходимое количество люминесцентных ламп дневного света марки', Предмет: 'БЖД', Категория: 'Электричество', Сложность: 'Легкий', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
-          { isActive: true, Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  }
+          { isActive: true, S:'', Задание: 'Выбрать значение тока при котором человек почувствует легкое покалывание', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: '' },
+          { isActive: true,  S:'', Задание: 'Освещенность рабочего места при боковом освещении составляет Евн=40 (лк).', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true, S:'', Задание: 'Рассчитать необходимую площадь световых проемов при применении бокового освещения', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: ''  },
+          { isActive: true,  S:'', Задание: 'Определить необходимое количество ламп накаливания типа Б для светильников', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Сложный', heart: ''  },
+          { isActive: true, S:'', Задание: 'Определить необходимое количество люминесцентных ламп дневного света марки', Предмет: 'БЖД', Категория: 'Электричество', Сложность: 'Легкий', heart: ''  },
+          { isActive: true, S:'', Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true, S:'', Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true,  S:'',Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true,  S:'',Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true,  S:'', Задание: 'Коэффициент использования светового потока светильника типа ЛБ с учетом', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true,  S:'', Задание: 'Выбрать значение тока при котором человек почувствует легкое покалывание', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: '' },
+          { isActive: true, S:'', Задание: 'Освещенность рабочего места при боковом освещении составляет Евн=40 (лк).', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Средний', heart: ''  },
+          { isActive: true, S:'', Задание: 'Рассчитать необходимую площадь световых проемов при применении бокового освещения', Предмет: 'БЖД', Категория: 'Электричество', 	Сложность: 'Легкий', heart: ''  }
         ],
 
       }
@@ -132,7 +127,6 @@ export default {
     font-size: 16px;
     line-height: 150%;   
     color: #C4C4C4;
-
 }
 
 ul.pagination>li:nth-child(1), ul.pagination>li:last-child{
@@ -182,25 +176,34 @@ li.page-item.disable{
 	margin-left: 25px;
 }
 
-td:nth-child(1){
-	width: 460px;
+#my-table td:nth-child(1){
 	background-image: url("../assets/rectangle.png");   
 	background-size: 20px 20px;
     background-repeat: no-repeat;  
     background-position: 0px center; 
 }
 
-td:nth-child(2){
+#my-table td:nth-child(1):hover{
+	background-image: url("../assets/rect_pupl.png");   
+	background-size: 20px 20px;
+    background-repeat: no-repeat;  
+    background-position: 0px center; 
+    cursor: pointer;
+}
+
+
+td:nth-child(3){
 	width: 160px; 
 }
 
-td:nth-child(3){
+td:nth-child(4){
 	width: 200px; 
 }
 
 td{
 	padding-left: 50px;
 }
+
 .table-striped tbody tr:nth-of-type(odd) {
    background-color: #F5F9FD; 
 }
@@ -219,6 +222,19 @@ td{
     padding-left: 34px;
 }
 
+td:nth-child(2){
+	width: 440px;
+	padding-left: 0px;
+}
+
+.table thead th:nth-child(2){
+	padding-left: 0px;
+}
+
+.table thead th:nth-child(1){
+	padding-right: 0px;
+}
+
 .table thead th {
     vertical-align: bottom;
     border-bottom: 1px solid #D9EAF5; 
@@ -231,33 +247,51 @@ td{
 }
 
 .table thead th:nth-child(1){
-	background-image: url("../assets/rectangle_check.png");   
-	background-size: 20px 20px;
+	background-image: url("../assets/rectangle_check.svg");   
+	background-size: 24px 24px;
     background-repeat: no-repeat;  
-    background-position: 0px center; 
+    background-position: -2px center; 
+
 }
 
-.table thead th:nth-child(5){
+
+.table thead th:nth-child(6), .table thead th:nth-child(1){
 	color: #F5F9FD; 
 }
 
-td:nth-child(5){
-	width: 400px;
+#my-table td:nth-child(6){
+	width: 100px;
 	background-image: url("../assets/heart.png");   
 	background-size: 20px 20px;
     background-repeat: no-repeat;  
     width: 60px; 
     background-position: 36px center;
 }
+
+td:nth-child(6):hover{
+	cursor: pointer;
+}
+
 #my-table{
 	
 	padding-bottom: 40px;
 }
+
 .pagin{
 	float:right;
 	margin-top: 30px;
 	margin-bottom: 40px;
 	
 }
+
+.table-striped tbody tr:hover {
+	background-color: #EEF4FB;
+}
+
+.custom-select:focus {
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+    }
 
 </style>

@@ -3,11 +3,23 @@
     <div class="main-body">
       <div class="div_logo"> <img class="logo_enter" src="../assets/Лого.png"> </div>
       
+      <form @submit.prevent="register_user" novalidate>
+        <div v-if="regMessage" class="alert alert-success" role="alert">
+             Вы успешно зарегистрировались!
+          </div>
+
         <template class="input">
             <b-container fluid >
-              <b-row class="my-1" v-for="type in types" :key="type">
+              <b-row class="my-1">
                  <b-col sm="9">
-                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Ваш email"></b-form-input>
+                  
+                  <b-form-input @blur="$v.formReg.email.$touch()"
+                     :class="status($v.formReg.email)"
+                     v-model.trim="formReg.email" id="email" 
+                  type="email" placeholder="Ваш email"></b-form-input>
+
+                  <div class="invalid-feedback" v-if="!$v.formReg.email.required">{{ reqText }}</div>
+              <div class="invalid-feedback" v-if="!$v.formReg.email.email">Пожалуйста введите Email адрес</div>
                 </b-col>
               </b-row>
             </b-container>
@@ -15,9 +27,16 @@
 
           <template class="input input_password">
             <b-container fluid >
-              <b-row class="my-1" v-for="type in types1" :key="type">
+              <b-row class="my-1">
                  <b-col sm="9">
-                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Ваш пароль"></b-form-input>
+                  <b-form-input @blur="$v.formReg.password.$touch()"
+                         :class="status($v.formReg.password)"
+                         v-model.trim="formReg.password" id="password" type="password" placeholder="Ваш пароль"></b-form-input>
+
+                  <div class="invalid-feedback" v-if="!$v.formReg.password.required">Поле обязательно для заполнения</div>
+                  <div class="invalid-feedback" 
+                       v-if="!$v.formReg.password.minLength">{{ minLengthText }}</div>
+                  
                 </b-col>
               </b-row>
             </b-container>
@@ -25,16 +44,23 @@
 
           <template class="input input_password">
             <b-container fluid >
-              <b-row class="my-1" v-for="type in types1" :key="type">
+              <b-row class="my-1">
                  <b-col sm="9">
-                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Повторите пароль"></b-form-input>
+                  <b-form-input @blur="$v.formReg.passwordConfirm.$touch()"
+                         :class="status($v.formReg.passwordConfirm)"
+                         v-model.trim="formReg.passwordConfirm"
+                          id="passwordConfirm" type="password" placeholder="Повторите пароль"></b-form-input>
+                          <div class="invalid-feedback" 
+                       v-if="!$v.formReg.passwordConfirm.sameAs">{{ passwordConfirmText }}</div>
+                  
                 </b-col>
               </b-row>
             </b-container>
           </template>
            
 
-          <button type="button" class="button button_enter" @click="$router.push({name: 'home'})">РЕГИСТРАЦИЯ</button>
+          <button :disabled="disabledRegister" type="submit" class="button button_enter">РЕГИСТРАЦИЯ</button>
+        </form>
          
       
 
@@ -51,6 +77,9 @@
 
 <script>
 
+import {  email, required, minLength, sameAs } from 'vuelidate/lib/validators'
+
+
 export default {
   name: '',
   components: {
@@ -58,19 +87,75 @@ export default {
   },
   data() {
        return {
-        types: [
-          'email'
-        ],
-        types1: [
-          'password'
-        ]
+        regMessage: false,
+        reqText: 'Поле обязательно для заполнения',
+        alphaText: 'Запрещены цифры, пробелы и другие символы',
+        minLengthText: 'Минимальная длина 6 символов!',
+        passwordConfirmText: 'Пароли не совпадают',
+        formReg: {
+          email: '',
+          password: '',
+          passwordConfirm: ''
+        }
       }
+    },
+
+  methods: {
+    register_user() {
+      console.log("Пользователь зарегистрирован");
+
+        this.reset()
+    },
+    reset() {
+        
+        this.regMessage = true;
+        // убрать сообщение о регистрации
+        setTimeout(() => {
+          this.regMessage = false
+        }, 3000)
+        // сбросить все поля
+        for (let input in this.formReg) {
+            this.formReg[input] = ''
+        }
+        // сбросить валидацию
+        this.$v.$reset()
+    },
+
+    status(validation) {
+       return {
+         'is-invalid': validation.$error,
+         'error': validation.$error
+       }
+     }
+  },
+
+  computed: {
+    disabledRegister() {
+       return this.$v.formReg.password.$invalid || 
+              this.$v.formReg.passwordConfirm.$invalid
     }
+  },
+
+  validations: {
+    formReg: {
+      email: {
+         email,
+        required: required
+      },
+       password: {
+            required,
+            minLength: minLength(6)
+          },
+          passwordConfirm: {
+            sameAs: sameAs('password')
+          }
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+/*@click="$router.push({name: 'home'})"*/
 .wave {
   width: 100%;
   height: 207px;
@@ -198,9 +283,17 @@ export default {
   color: #808191;
 }
 
-#input[type="checkbox" i]{
-
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus{
+ border-color: none;
+ box-shadow: none;
 }
+
+.form-control:focus{
+    color: #495057;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: none;
+  }
 </style>
 
    

@@ -1,13 +1,28 @@
 <template>
    <div class="body">
+
+    <Popup
+      v-if="isPopupVisible"
+      @ClosePopup="ClosePopup"
+    />
+
     <div class="main-body">
       <div class="div_logo"> <img class="logo_enter" src="../assets/Лого.png"> </div>
       
-        <template class="input">
+      <form @submit.prevent="enter_user" novalidate>
+        
+          <template class="input">
             <b-container fluid >
-              <b-row class="my-1" v-for="type in types" :key="type">
+              <b-row class="my-1">
                  <b-col sm="9">
-                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Ваш email"></b-form-input>
+                  
+                  <b-form-input @blur="$v.formReg.email.$touch()"
+                     :class="status($v.formReg.email)"
+                     v-model.trim="formReg.email" id="email" 
+                  type="email" placeholder="Ваш email"></b-form-input>
+
+                  <div class="invalid-feedback" v-if="!$v.formReg.email.required">{{ reqText }}</div>
+              <div class="invalid-feedback" v-if="!$v.formReg.email.email">Пожалуйста введите Email адрес</div>
                 </b-col>
               </b-row>
             </b-container>
@@ -15,9 +30,16 @@
 
           <template class="input input_password">
             <b-container fluid >
-              <b-row class="my-1" v-for="type in types1" :key="type">
+              <b-row class="my-1">
                  <b-col sm="9">
-                  <b-form-input :id="`type-${type}`" :type="type" placeholder="Ваш пароль"></b-form-input>
+                  <b-form-input @blur="$v.formReg.password.$touch()"
+                         :class="status($v.formReg.password)"
+                         v-model.trim="formReg.password" id="password" type="password" placeholder="Ваш пароль"></b-form-input>
+
+                  <div class="invalid-feedback" v-if="!$v.formReg.password.required">Поле обязательно для заполнения</div>
+                  <div class="invalid-feedback" 
+                       v-if="!$v.formReg.password.minLength">{{ minLengthText }}</div>
+                  
                 </b-col>
               </b-row>
             </b-container>
@@ -36,9 +58,11 @@
                 </b-form-checkbox>
               
             </template>
-          <p class="password">Забыли пароль?</p>
+          
+          <p class="password" @click="ShowPopup">Забыли пароль?</p>
 
-          <button type="button" class="button button_enter" @click="$router.push({name: 'home'})">ВОЙТИ</button>
+          <button :disabled="disabledEnter" type="submit" class="button button_enter" @click="$router.push({name: 'home'})">ВОЙТИ</button>
+        </form>
          
       
 
@@ -56,10 +80,13 @@
 
 <script>
 
+import {  email, required, minLength } from 'vuelidate/lib/validators'
+import Popup from '../components/Popup.vue'
+
 export default {
   name: '',
   components: {
-   
+   Popup
   },
   data() {
        return {
@@ -68,9 +95,73 @@ export default {
         ],
         types1: [
           'password'
-        ]
+        ],
+        regMessage: false,
+        reqText: 'Поле обязательно для заполнения',
+        minLengthText: 'Минимальная длина 6 символов!',
+        formReg: {
+          email: '',
+          password: ''
+        },
+        isPopupVisible: false
       }
+    },
+
+    methods: {
+    enter_user() {
+      console.log("Пользователь вошел");
+
+        this.reset()
+    },
+    reset() {
+        
+        this.regMessage = true;
+        // убрать сообщение о регистрации
+        setTimeout(() => {
+          this.regMessage = false
+        }, 3000)
+        // сбросить все поля
+        for (let input in this.formReg) {
+            this.formReg[input] = ''
+        }
+        // сбросить валидацию
+        this.$v.$reset()
+    },
+
+    status(validation) {
+       return {
+         'is-invalid': validation.$error,
+         'error': validation.$error
+       }
+     },
+
+     ShowPopup(){
+      this.isPopupVisible = true
+     },
+
+     ClosePopup(){
+       this.isPopupVisible = false
+     }
+  },
+
+  computed: {
+    disabledEnter() {
+       return this.$v.formReg.password.$invalid
     }
+  },
+
+  validations: {
+    formReg: {
+      email: {
+         email,
+        required: required
+      },
+       password: {
+            required,
+            minLength: minLength(6)
+          }
+    }
+  }
 }
 </script>
 
@@ -208,6 +299,17 @@ cursor: pointer;
   color: #808191;
 }
 
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus{
+ border-color: none;
+ box-shadow: none;
+}
+
+.form-control:focus{
+    color: #495057;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: none;
+  }
 
 </style>
 

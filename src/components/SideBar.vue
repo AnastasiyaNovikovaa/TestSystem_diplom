@@ -3,7 +3,7 @@
     <div class="logo"> <img src="../assets/Лого.png"></div>
      
      <div class="accordion-item">
-     <router-link to="/">Главная</router-link>
+     <router-link class="main" to="/">Главная</router-link>
      </div>
 
       <div class="accordion-item">
@@ -17,11 +17,11 @@
       </div>
  
     <div class="accordion-item">
-        <router-link to="/tests">Тесты </router-link>
+        <router-link class="tests" to="/tests">Тесты </router-link>
     </div>
 
      <div class="accordion-item">
-          <router-link to="/report_card">Ведомость </router-link>
+          <router-link class="report" to="/report_card">Ведомость </router-link>
     </div> 
 
     <div>
@@ -126,6 +126,10 @@ color:#808191;
 color: #6C5DD3;
 }
 
+.accordion-item-head:active {
+color: red;
+}
+
 .accordion-item-head:after{    
     content: url("../assets/arrow.png");
     display: block;
@@ -148,8 +152,38 @@ color: #6C5DD3;
 } 
 .accordion-item-head.active + .accordion-item-body{
     display: block !important;
-
 flex-direction: column;
 flex-wrap: wrap;
+}
+
+.router-link-exact-active{
+  color: white;
+  background: #6C5DD3;
+  border-radius: 8px;
+  position: relative;
+  left: -16px;
+}
+
+.main.router-link-exact-active{
+ padding: 10px 94px 10px 16px;
+}
+
+.tests.router-link-exact-active{
+ padding: 10px 106px 10px 16px;
+}
+
+.report.router-link-exact-active{
+ padding: 10px 70px 10px 16px;
+}
+
+.tests.router-link-exact-active:hover, .report.router-link-exact-active:hover, .main.router-link-exact-active:hover{
+  color: white;
+}
+
+.accordion-item-body .router-link-exact-active{
+  color: #6C5DD3;
+   background: none;
+  border-radius: 0px;
+  padding: 10px 0px 10px 16px;
 }
 </style>

@@ -16,9 +16,18 @@ let store = new Vuex.Store ({
 	},
 	actions: {
 		GET_TEST_FROM_API({commit}) {
+
+
 			
-			return axios('http://localhost:3000/tests', {
-				method: "GET"
+			return axios('http://testing-system.eu-west-2.elasticbeanstalk.com/api/test', {
+				method: "GET",
+				headers: {
+					"Accept": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "X-Requested-With": "XMLHttpRequest",
+  "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+				}
 			})
 			//return instance.get(/tests/)
 			.then((tests) => {
