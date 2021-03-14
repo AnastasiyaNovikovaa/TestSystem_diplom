@@ -1,15 +1,17 @@
 <template>
   <div class="cart_test">
-  <p class="head_cart">{{test_data.head}}</p>
+  <p class="head_cart">{{test_data.name}}</p>
   <p class="sub">Предмет</p>
-  <p class="second-layer">{{test_data.subject}}</p>
+  <!--<p class="second-layer">{{test_data.subject}}</p>-->
+  <p class="second-layer">Основы менеджмента</p>
   <p class="sub">Дедлайн</p>
-  <p class="second-layer">{{test_data.date_close}}</p>
+  <!--<p class="second-layer">{{test_data.date_close}}</p>-->
+  <p class="second-layer">{{test_data.createdDate[2]}}<span>.</span>{{test_data.createdDate[1]}}<span>.</span>{{test_data.createdDate[0]}}</p>
   <!--<button><router-link
     :to="{name: 'test', params: { id: test_data.id} }"
    class="button">СТАТИСТИКА</router-link></button>-->
 
-   <button type="button"  class="button" @click="$router.push({name: 'test', params: { id: test_data.id-1} })">СТАТИСТИКА</button>
+   <button type="button"  class="button button_statistic" @click="$router.push({name: 'test', params: { id: test_data.id} })">СТАТИСТИКА</button>
   </div>
 </template>
 
@@ -48,6 +50,7 @@ border-radius: 12px;
 box-shadow: 0px 0px 18px rgba(128, 129, 145, 0.15);
 padding: 16px;
 margin-right: 32px;
+position: relative;
 }
 
 .head_cart{
@@ -91,6 +94,11 @@ border: none;
 color: #ffffff;
 text-align: center;
 vertical-align: center;
+}
+
+.button_statistic{
+  position: absolute;
+  bottom: 16px;
 }
 
 </style>

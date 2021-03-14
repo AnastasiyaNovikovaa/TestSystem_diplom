@@ -1,0 +1,239 @@
+<template>
+<div class="block_question">
+    <input type="text" placeholder="Новый вопрос" name="question_test" class="question_test">
+
+    
+
+<select v-model="select" class="select_type_question arrow_light">
+  <option v-for="(select,index) in selects" :key="index">{{ select}}</option>
+</select>
+ 
+ <div v-if="select=='Один из списка'" class="one_from_list">
+  <input type="text" placeholder="Первый вариант ответа" name="variant_answer" class="variant_answer">
+  <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="variant_answer">
+  <input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="variant_answer">
+  <input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="variant_answer">
+  
+  <ul class="question_answe_new">
+  <li v-for="component in arr"
+  :key="component.idOrder">
+    <component_a  v-bind:item="component"></component_a> 
+  </li>
+</ul>
+  <button @click="add" class="add_question">Добавить вариант</button>
+  
+ </div>
+
+  <div v-if="select=='Несколько из списка'" class="Several_from_list">
+  <input type="text" placeholder="Первый вариант ответа" name="variant_answer" class="Several_variant_answer">
+  <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="Several_variant_answer">
+  <input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="Several_variant_answer">
+  <input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="Several_variant_answer">
+  
+  <ul class="question_answer_new">
+  <li v-for="component in arr"
+  :key="component.idOrder">
+    <component_several_answer  v-bind:item="component"></component_several_answer> 
+  </li>
+</ul>
+  <button @click="add" class="add_question">Добавить вариант</button>
+  
+ </div>
+
+ <div v-if="select=='Текстовый ответ'" class="Several_from_list">
+  <input type="text" placeholder="Введите правильный ответ" name="variant_answer" class="text_answer">
+  
+ </div>
+
+  <div class="new_hr"><hr></div>
+
+   <div class="ball_right_answer">
+   <p class="text_rating">Баллы за правильный ответ: </p>
+    <input type="text" name="right_answer" placeholder="1" class="right_answer">
+   </div>
+
+   <button class="save_question">СОХРАНИТЬ</button>
+
+  </div>
+</template>
+
+<script>
+
+  export default {
+  components: {
+    component_a: {
+    render(createElement){
+      return createElement ("input", {class:"variant_answer"})
+    },
+
+    props: ['item']
+   },
+
+   component_several_answer: {
+    render(createElement){
+      return createElement ("input", {class:"Several_variant_answer"})
+    },
+
+    props: ['item']
+   }
+
+  },
+ data() {
+      return {
+        selects: ['Один из списка', 'Несколько из списка','Текстовый ответ', 'Загрузка фото'],
+        select: 'Один из списка',
+        arr: [],
+        items: []
+
+      }
+    },
+    methods: {
+     add(){
+      this.arr.push({
+         idOrder: Math.random().toFixed(2)
+        });
+  }}
+}
+  
+</script>
+
+<style>
+
+  .save_question{
+    width: 232px;
+    height: 36px;
+    background: #6C5DD3;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    float: right;
+    margin-right: 80px;
+  }
+
+  .new_hr{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .ball_right_answer{
+    margin-top: 20px;
+    float: left;
+  }
+
+  .right_answer{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 16px;
+    margin-left: 8px;
+    width: 30px;
+    border-color: #BDBDBD;
+  }
+
+  .new_hr{
+    width: 92%;
+  }
+
+  .add_question{
+  background: white;
+  border-radius: 8px;
+  border: none;
+  color: #6C5DD3;
+  text-decoration: underline;
+}
+
+.add_question:focus{
+  outline: red;
+}
+
+  .question_answe_new>li{
+    list-style-type: none;
+  }
+
+  ul{
+     padding-left: 0px;
+  }
+
+.variant_answer::placeholder {
+  font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  color: #808191;
+}
+
+ .variant_answer, .Several_variant_answer, .text_answer{
+   border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  width: 80%;
+  margin-bottom: 24px;
+  font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+  background-image: url("../assets/radio.png");
+  background-size: 16px 16px;
+  padding-left: 24px;
+    background-repeat: no-repeat;  
+    background-position: 0px;
+    margin-right: 40px;
+    display: block;
+}
+
+.select_type_question{
+  width: 308px;
+  height: 40px;
+  padding-left: 10px;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 5px;
+   padding-right: 16px;
+   font-family:  'RobotoRegular', Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.icon_arrow {
+  background-image: url("../assets/arrow_light.png");   
+    background-repeat: no-repeat;  
+    background-position: 280px;
+    padding-left: 16px;
+}
+
+.question_test:focus{
+  outline: red;
+}
+
+.question_test{
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #C4C4C4;
+  width: 50%;
+  margin-bottom: 44px;
+  font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+  background-image: url("../assets/photo.png");   
+    background-repeat: no-repeat;  
+    background-position: 95%;
+    margin-right: 10%;
+    padding-bottom: 10px;
+}
+
+.block_question{
+  background: #FFFFFF;
+  box-shadow: 0px 0px 18px rgba(128, 129, 145, 0.15);
+  border-radius: 8px;
+  width: 94%;
+  height: 60%;
+  clear: both;
+  padding-top: 50px;
+  padding-bottom: 80px;
+  padding-left: 50px;
+  margin-bottom: 40px;
+}
+
+.variant_answer:focus{
+  padding-left: 20px;
+}
+</style>

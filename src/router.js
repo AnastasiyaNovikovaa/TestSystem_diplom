@@ -9,6 +9,7 @@ import Test from './pages/OpenTests/Index_test.vue'
 import Entrance from './pages/Entrance.vue'
 import Registration from './pages/Registration.vue'
 import EditProfile from './pages/EditProfile.vue'
+import Create_test from './pages/Create_test.vue'
 
 
 
@@ -66,6 +67,13 @@ export default new VueRouter ({
 		path: '/edit_profile',
 		name: 'edit_profile',
 		component: EditProfile,
+		meta: { requiresHeaderSideBar: true }
+	},
+
+	{
+		path: '/create_test',
+		name: 'create_test',
+		component: Create_test,
 		meta: { requiresHeaderSideBar: true }
 	},
 

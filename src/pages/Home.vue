@@ -4,16 +4,7 @@
     <div class="catalog">
 	<Catalog_cart/>
     </div>
-   
-    <h3>Hello</h3>
-  <hr>
-  <button @click="add">Add a component</button>
-  <ul>
-  <li v-for="component in arr"
-	:key="component.idOrder">
-    <component_a  v-bind:item="component"></component_a> 
-  </li>
-</ul>
+    
   </div>
 </template>
 
@@ -28,29 +19,13 @@ import Catalog_cart from '../components/Catalog_cart.vue'
 export default {
   name: '',
   components: {
-     Catalog_cart,
-	component_a: {
-		render(createElement){
-			return createElement ("h3","Привет")
-		},
-
-    props: ['item'],
-	//template: '<h3>Привет</h3>'
-   }
+     Catalog_cart
   },
   data() {
     return {
-      test: null,
-      arr: []
+      test: null
     };
-  },
-  methods: {
-  add(){
-      this.arr.push({
-         idOrder: Math.random().toFixed(2),
-         title: 'Номер заказа:'
-        });
-  }},
+  }
  /* mounted(){
   axios
   .get('http://testing-system.eu-west-2.elasticbeanstalk.com/api/test')

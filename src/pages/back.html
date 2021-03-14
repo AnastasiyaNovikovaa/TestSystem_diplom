@@ -1,0 +1,68 @@
+<div class="block_info">
+       <p class="Open_tests">Общая информация</p>
+
+      <div class="block_info_1">
+        <p> <b>Предмет:</b>  {{TESTS[id].subject}}</p>
+        <p> <b>Категория:</b>  {{TESTS[id].category}}</p>
+        <p> <b>Дата открытия:</b> {{TESTS[id].date_open}}</p>
+        <p> <b>Дата закрытия: </b>{{TESTS[id].date_close}}</p>
+        <p> <b>Полученных результатов:</b>  24</p>
+      </div>
+    </div>
+
+    <div class="block_info">
+      <p class="Open_tests">Сводная статистика</p>
+    <div class="block_info_2">
+      <div class="grades">
+        <p><b>Результаты тестирования:</b></p>
+        <p class="grade1">Оценка "5" - 8 человек</p>
+        <p class="grade2">Оценка "4" - 9 человек</p>
+        <p class="grade3">Оценка "3" - 5 человек</p>
+        <p class="grade4">Оценка "неуд" - 2 человек</p>
+      </div>
+
+      <div class="diagram">
+        
+      </div>
+      
+    </div>
+  </div>
+
+    <div class="table_grade">
+      <div class="head_select">
+       <p class="Open_tests">Таблица с результатами</p>
+     
+      <div class="Select select_test">
+      <template>
+         <b-form-select v-model="selected" class="mb-3 icon" >
+        <b-form-select-option :value="null" class="text">Не выбрано</b-form-select-option>
+        <b-form-select-option value="a" class="text">Сортировать А-Я</b-form-select-option>
+        <b-form-select-option value="b" class="text">Сортировать Я-А</b-form-select-option>
+        </b-form-select>
+     </template>
+    </div>
+
+    <div>
+        <b-form-input size="sm" class="mr-sm-2" placeholder="Поиск по ФИО" id="search_test"></b-form-input>
+    </div>
+   </div>
+
+    <template>
+  <div>
+    <b-table id="my-table-2" striped hover :items="items" :fields="fields" :per-page="perPage"
+      :current-page="currentPage" ></b-table>
+  </div>
+  </template>
+
+  <div class="pagin">
+   <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="my-table"
+
+   ></b-pagination>
+
+</div>
+
+    </div>

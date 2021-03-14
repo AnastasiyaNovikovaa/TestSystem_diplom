@@ -18,7 +18,7 @@
 
     <div class="catalog catalog_test">
     <p class="Open_tests">Открытые тесты</p>
-    <button class="New_test" >
+    <button class="New_test" @click="$router.push({name: 'create_test'})">
    <div class="plus"> <img src="../assets/plus.png"></div>
    <div>  <p class="Create">Создать тест</p></div>
 	</button>
