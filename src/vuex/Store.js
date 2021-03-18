@@ -19,7 +19,7 @@ let store = new Vuex.Store ({
 
 
 			
-			return axios('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/test', {
+			return axios('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/test', {
 				method: "GET",
 				headers: {
 					"Accept": "application/json",

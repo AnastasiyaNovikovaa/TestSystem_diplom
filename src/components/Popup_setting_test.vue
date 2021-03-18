@@ -1,21 +1,23 @@
 <template>
   <div class="popup_wrapper">
-   <div class="popup_setting_test">
+   <div class="popup_setting_test prokrutka">
     <h3>Настройка публикации</h3>
     <button @click="ClosePopup_setting" class="icon_close close_setting"></button>
 
     <div class="select_subject">
-      <p class="test_select">Выберите предмет</p>
-      <select v-model="select" class="select_subject_button arrow_light">
+      <p class="test_select">Введите название предмета</p>
+       <input type="text" placeholder="Математический анализ" class="select_subject_button arrow_light">
+      <!--<select v-model="select" class="select_subject_button arrow_light">
        <option v-for="(select,index) in selects" :key="index">{{ select}}</option>
-      </select>
+      </select>-->
     </div>
 
     <div class="select_category">
       <p class="test_select">Выберите категорию</p>
-      <select v-model="select_category" class="select_category_button arrow_light">
+      <input type="text" placeholder="Интегралы" class="select_category_button arrow_light">
+      <!--<select v-model="select_category" class="select_category_button arrow_light">
        <option v-for="(select_category,index_cat) in selects_category" :key="index_cat">{{ select_category}}</option>
-      </select>
+      </select>-->
     </div>
 
     <div class="rating">
@@ -48,11 +50,32 @@
 
     <div class="close_test_">
       <p class="test_select">Закрыть тест через</p>
-      <b-form-radio class="radio" v-model="selected_close"  value="A">Не удалять</b-form-radio>
-      <b-form-radio class="radio" v-model="selected_close"  value="B">Установить время</b-form-radio>
+      <b-form-radio class="radio_" v-model="selected_close"  value="C">Не удалять</b-form-radio>
+      <b-form-radio class="radio_" v-model="selected_close"  value="D">Установить время</b-form-radio>
     </div>
 
-    <button class="save_setting">Сохранить</button>
+    <div v-if="selected_close=='D'" class="Date_deadline">
+      <label>Введите дату</label>
+  <input type="text" placeholder="XX.XX.XXXX" name="variant_answer" class="deadline">
+
+  <label>Введите время</label>
+  <input type="text" placeholder="XX:XX" name="variant_answer" class="deadline">
+  
+ </div>
+
+ <div v-if="selected=='B' && selected_close=='D'" class="Time_question">
+      <label>Количество минут для одного вопроса</label>
+  <input type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  
+ </div>
+
+ <div v-if="selected=='B'&& selected_close!='D'" class="Time_question_">
+      <label>Количество минут для одного вопроса</label>
+  <input type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  
+ </div>
+
+<button class="save_setting">Сохранить</button>
 
   </div>
 </div>
@@ -68,7 +91,7 @@
         selects_category: ['Интегралы', 'Производная','Дифуры', 'Пределы'],
         select_category: 'Интегралы',
         selected: 'A',
-        selected_close: 'A'
+        selected_close: 'C'
       }
     },
   methods: {
@@ -81,6 +104,58 @@
 </script>
 
 <style>
+  .Time_question_{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1B1D21;
+  }
+
+ .Time_question {
+  display: inline;
+  width: 250px;
+  float: left;
+  position: relative;
+  top: -25%;
+   font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1B1D21;
+  }
+
+.Date_deadline{
+  float: right;
+  display: inline;
+  width: 200px;
+  position: relative;
+    right: -200px;
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1B1D21;
+}
+
+.deadline{
+   background: #FFFFFF;
+     border: 1px solid #C4C4C4;
+     box-sizing: border-box;
+     border-radius: 5px;
+     padding-left: 8px;
+     height: 32px;
+     margin-bottom: 10px;
+}
+
+  .prokrutka {
+overflow-y: scroll; /* прокрутка по вертикали */
+}
+
+  .close_test_{
+    width: 200px;
+    float: right;
+  }
 
   .save_setting{
     width: 200px;
@@ -228,9 +303,13 @@
     margin-bottom: 12px;
   }
 
-  .time_test {
+  .time_test{
+    width: 300px;
     float: left;
-    margin-right: 120px;
+  }
+
+  .radio_{
+    margin-bottom: 12px;
   }
   
 </style>

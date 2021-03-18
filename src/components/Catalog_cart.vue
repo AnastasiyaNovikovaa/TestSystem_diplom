@@ -6,6 +6,7 @@
       v-bind:test_data="test"
       @Statistic="showIdCart"
   />  
+
   </div>
 </template>
 
@@ -22,14 +23,18 @@ export default {
   },
   data () {
     return {
-    
+    timestamp: ""
     }
   },
 
   computed: {
     ...mapGetters([
       'TESTS'
-      ])
+      ]),
+   // open_test() {
+     //return this.TESTS.filter(test => test.deadline > this.timestamp);
+   ///  return this.TESTS.filter(test => test.deadline > this.timestamp);
+   // },
   },
 
   methods: {
@@ -40,8 +45,19 @@ export default {
 
     ...mapActions([
         'GET_TEST_FROM_API'
-      ])
+      ]),
+    getNow: function() {
+                    const today = new Date();
+                    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    const dateTime = date +' '+ time;
+                    this.timestamp = dateTime;
+                }
   },
+
+  created() {
+                setInterval(this.getNow, 1000);
+            },
 
   mounted() {
     this.GET_TEST_FROM_API();

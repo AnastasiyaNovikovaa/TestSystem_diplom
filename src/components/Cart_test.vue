@@ -2,11 +2,10 @@
   <div class="cart_test">
   <p class="head_cart">{{test_data.name}}</p>
   <p class="sub">Предмет</p>
-  <!--<p class="second-layer">{{test_data.subject}}</p>-->
-  <p class="second-layer">Основы менеджмента</p>
+  <p class="second-layer">{{test_data.subject}}</p>
   <p class="sub">Дедлайн</p>
-  <!--<p class="second-layer">{{test_data.date_close}}</p>-->
-  <p class="second-layer">{{test_data.createdDate[2]}}<span>.</span>{{test_data.createdDate[1]}}<span>.</span>{{test_data.createdDate[0]}}</p>
+  <p class="second-layer">{{test_data.deadline}}</p>
+  <p class="second-layer"></p>
   <!--<button><router-link
     :to="{name: 'test', params: { id: test_data.id} }"
    class="button">СТАТИСТИКА</router-link></button>-->

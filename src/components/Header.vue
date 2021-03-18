@@ -17,7 +17,7 @@
             <div class="name">Гончаров С.П.</div>
           </template>
           <b-dropdown-item class="hover"> <router-link to="/" class="main_header">Главная</router-link></b-dropdown-item>
-          <b-dropdown-item class="hover"> <router-link to="/edit_profile">Настройка профиля</router-link></b-dropdown-item>
+          <b-dropdown-item class="hover"> <router-link class="edit_profile" to="/edit_profile">Настройка профиля</router-link></b-dropdown-item>
          <b-dropdown-item> <hr></b-dropdown-item>
           <b-dropdown-item class="hover"> <router-link to="/entrance">Выход</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
@@ -42,6 +42,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+  .edit_profile.router-link-exact-active{
+    background-color: white;
+    color: #6C5DD3;
+    margin-left: 16px;
+  }
 
 #search{
   margin-right: 30px;

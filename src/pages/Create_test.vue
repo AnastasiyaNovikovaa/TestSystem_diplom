@@ -31,7 +31,8 @@
     <button class="button_load_tasks"></button>
   </div>
 
-  <Question_test v-for="n in items" :key="n.id"></Question_test>
+  <Question_test v-for="(n,index) in items" :key="n.index" :row-data="n" v-on:delete-row="deleteThisRow(index)">
+  </Question_test>
 
   </div>
 </template>
@@ -53,12 +54,19 @@ export default {
       return {
         items: [],
         isPopupVisible: false,
-        isPopupVisible_publish: false
+        isPopupVisible_publish: false,
+        count: 1,
       }
     },
     methods: {
+      deleteThisRow: function(index) {
+            this.items.splice(index, 1),
+            console.log('УДАЛИЛИ'+index)
+        },
+
       add_question(){
-      this.items.push(Math.random());
+      this.items.push(this.count),
+      this.count=this.count+1
       },
 
       ShowPopup(){

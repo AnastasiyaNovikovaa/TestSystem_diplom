@@ -1,23 +1,26 @@
 <template>
 <div class="block_question">
-    <input type="text" placeholder="Новый вопрос" name="question_test" class="question_test">
+  <form @submit="post_data_question" method="POST">
 
-    
+<input type="text" placeholder="Новый вопрос" name="question_test" class="question_test">
 
 <select v-model="select" class="select_type_question arrow_light">
   <option v-for="(select,index) in selects" :key="index">{{ select}}</option>
 </select>
  
  <div v-if="select=='Один из списка'" class="one_from_list">
-  <input type="text" placeholder="Первый вариант ответа" name="variant_answer" class="variant_answer">
-  <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="variant_answer">
-  <input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="variant_answer">
-  <input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="variant_answer">
+  <p class="text_for_answer">Введите варианты ответов и отметьте верный</p>
+
+<p><input name="one_answer" type="radio" value="n1"> <input class="variant_answer" type="text" placeholder="Первый вариант ответа" name="variant_answer" ></p>
+ <p><input  name="one_answer" type="radio" value="n2"> <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="variant_answer"></p>
+  <p><input name="one_answer" type="radio" value="n3"><input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="variant_answer"></p>
+  <p><input name="one_answer" type="radio" value="n4"><input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="variant_answer"></p>
+
   
-  <ul class="question_answe_new">
+  <ul class="question_answer_new">
   <li v-for="component in arr"
   :key="component.idOrder">
-    <component_a  v-bind:item="component"></component_a> 
+    <Radio_button_new  v-bind:item="component"></Radio_button_new> 
   </li>
 </ul>
   <button @click="add" class="add_question">Добавить вариант</button>
@@ -25,18 +28,21 @@
  </div>
 
   <div v-if="select=='Несколько из списка'" class="Several_from_list">
-  <input type="text" placeholder="Первый вариант ответа" name="variant_answer" class="Several_variant_answer">
-  <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="Several_variant_answer">
-  <input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="Several_variant_answer">
-  <input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="Several_variant_answer">
+  <p class="text_for_answer">Введите варианты ответов и отметьте верные</p>
+
+  <p><input name="several_answer" type="checkbox" value="nedzen"> <input class="Several_variant_answer" type="text" placeholder="Первый вариант ответа" name="variant_answer" ></p>
+ <p><input name="several_answer" type="checkbox" value="nedzen"> <input type="text" placeholder="Второй вариант ответа" name="variant_answer" class="Several_variant_answer"></p>
+  <p><input name="several_answer" type="checkbox" value="nedzen"><input type="text" placeholder="Третий вариант ответа" name="variant_answer" class="Several_variant_answer"></p>
+  <p><input name="several_answer" type="checkbox" value="nedzen"><input type="text" placeholder="Четвертый вариант ответа" name="variant_answer" class="Several_variant_answer"></p>
   
   <ul class="question_answer_new">
-  <li v-for="component in arr"
+  <li v-for="component in arr_several"
   :key="component.idOrder">
-    <component_several_answer  v-bind:item="component"></component_several_answer> 
+    <Checkbox_new  v-bind:item="component"></Checkbox_new> 
   </li>
 </ul>
-  <button @click="add" class="add_question">Добавить вариант</button>
+  <button @click="add_several" class="add_question">Добавить вариант</button>
+ 
   
  </div>
 
@@ -48,20 +54,29 @@
   <div class="new_hr"><hr></div>
 
    <div class="ball_right_answer">
-   <p class="text_rating">Баллы за правильный ответ: </p>
+   <p class="text_right_answer">Баллы за правильный ответ: </p>
     <input type="text" name="right_answer" placeholder="1" class="right_answer">
    </div>
 
    <button class="save_question">СОХРАНИТЬ</button>
 
+   <button class="delete_question" @click="$emit('delete-row')">Удалить</button>
+
+ </form>
   </div>
 </template>
 
 <script>
 
+  import Radio_button_new from '../components/Radio_button_new.vue'
+  import Checkbox_new from '../components/Checkbox_new.vue'
+
   export default {
+    name: "PostQuestion",
   components: {
-    component_a: {
+    Radio_button_new,
+    Checkbox_new
+    /*component_a: {
     render(createElement){
       return createElement ("input", {class:"variant_answer"})
     },
@@ -69,13 +84,13 @@
     props: ['item']
    },
 
-   component_several_answer: {
+   /*component_several_answer: {
     render(createElement){
       return createElement ("input", {class:"Several_variant_answer"})
     },
 
     props: ['item']
-   }
+   }*/
 
   },
  data() {
@@ -83,21 +98,64 @@
         selects: ['Один из списка', 'Несколько из списка','Текстовый ответ', 'Загрузка фото'],
         select: 'Один из списка',
         arr: [],
+        arr_several: [],
         items: []
 
       }
     },
-    methods: {
+ methods: {
      add(){
       this.arr.push({
+         idOrder: Math.random().toFixed(3)
+        });
+  },
+  add_several(){
+      this.arr_several.push({
          idOrder: Math.random().toFixed(2)
         });
-  }}
+  },
+
+  post_data_question(){
+
+  }
+
+}
 }
   
 </script>
 
 <style>
+
+  .delete_question{
+    border: none;
+    background: white;
+    position: relative;
+    left: 32%;
+    padding-top: 24px;
+  }
+  .delete_question:focus{
+    outline: red;
+  }
+
+  .text_right_answer{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    color: #1B1D21;
+    margin-bottom: 24px;
+    float: left;
+    padding-top: 4px;
+  }
+
+  .text_for_answer{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: #1B1D21;
+    margin-bottom: 24px;
+  }
 
   .save_question{
     width: 232px;
@@ -108,6 +166,7 @@
     color: white;
     float: right;
     margin-right: 80px;
+    margin-top: 20px;
   }
 
   .new_hr{
@@ -120,7 +179,7 @@
     float: left;
   }
 
-  .right_answer{
+  .right_answer {
     border-top: none;
     border-left: none;
     border-right: none;
@@ -128,6 +187,12 @@
     margin-left: 8px;
     width: 30px;
     border-color: #BDBDBD;
+    padding-left: 8px;
+  }
+
+  .right_answer:focus{
+   outline: red;
+   border-color: #6C5DD3;
   }
 
   .new_hr{
@@ -135,11 +200,17 @@
   }
 
   .add_question{
+     font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: #6C5DD3;
   background: white;
-  border-radius: 8px;
   border: none;
-  color: #6C5DD3;
-  text-decoration: underline;
+  border-top: none;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
 }
 
 .add_question:focus{
@@ -168,15 +239,13 @@
   border-left: none;
   border-bottom: none;
   width: 80%;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
-  background-image: url("../assets/radio.png");
-  background-size: 16px 16px;
-  padding-left: 24px;
-    background-repeat: no-repeat;  
-    background-position: 0px;
-    margin-right: 40px;
-    display: block;
+  padding-left: 8px;
+}
+
+.variant_answer:focus, .Several_variant_answer:focus, .text_answer:focus{
+  outline: red;
 }
 
 .select_type_question{
@@ -211,7 +280,7 @@
   border-left: none;
   border-bottom: 1px solid #C4C4C4;
   width: 50%;
-  margin-bottom: 44px;
+  margin-bottom: 40px;
   font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
   background-image: url("../assets/photo.png");   
     background-repeat: no-repeat;  

@@ -73,9 +73,29 @@
 
 <style>
 
+  .email_prof_input, .number_prof_input, .teleg_prof_input, .birthday_prof_input, .place_prof_input, .work_prof_input{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    color: #1B1D21;
+    margin-bottom: 24px;
+  }
+
+  .email_prof, .number_prof, .teleg_prof, .birthday_prof, .place_prof, .work_prof{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 150%;
+    color: #808191;
+    margin-bottom: 8px;
+  }
+
   .main_part_edit{
     width: 1052px;
-    height: 467px;
+    height: 400px;
     background: #FFFFFF;
     box-shadow: 0px 4px 18px rgba(128, 129, 145, 0.15);
     border-radius: 10px;
