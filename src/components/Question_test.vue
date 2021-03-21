@@ -1,8 +1,7 @@
 <template>
 <div class="block_question">
-  <form @submit="post_data_question" method="POST">
 
-<input type="text" placeholder="Новый вопрос" name="question_test" class="question_test">
+<input v-model="question" type="text" placeholder="Новый вопрос" name="question_test" class="question_test">
 
 <select v-model="select" class="select_type_question arrow_light">
   <option v-for="(select,index) in selects" :key="index">{{ select}}</option>
@@ -47,8 +46,8 @@
  </div>
 
  <div v-if="select=='Текстовый ответ'" class="Several_from_list">
-  <input type="text" placeholder="Введите правильный ответ" name="variant_answer" class="text_answer">
-  
+  <input type="text" placeholder="Введите правильный ответ" 
+  name="variant_answer" class="text_answer">
  </div>
 
   <div class="new_hr"><hr></div>
@@ -61,8 +60,6 @@
    <button class="save_question">СОХРАНИТЬ</button>
 
    <button class="delete_question" @click="$emit('delete-row')">Удалить</button>
-
- </form>
   </div>
 </template>
 
@@ -73,6 +70,13 @@
 
   export default {
     name: "PostQuestion",
+
+    props: {
+      id_test: {
+        type: Number
+      }
+    },
+
   components: {
     Radio_button_new,
     Checkbox_new
@@ -113,12 +117,18 @@
       this.arr_several.push({
          idOrder: Math.random().toFixed(2)
         });
-  },
-
-  post_data_question(){
-
   }
+},
 
+ computed: {
+    question: {
+        set(value){
+          this.$store.dispatch('ADD_DATA_TEST',{question: value} );
+        },
+        get(){
+          return this.$store.getters.question;
+        }
+     }
 }
 }
   

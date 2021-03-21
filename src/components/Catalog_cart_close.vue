@@ -1,7 +1,7 @@
 <template>
   <div class="catalog-cart">
   <Cart_test
-      v-for="test in open_test"
+      v-for="test in close_test"
       :key="test.id"
       v-bind:test_data="test"
       @Statistic="showIdCart"
@@ -31,11 +31,8 @@ export default {
     ...mapGetters([
       'TESTS'
       ]),
-    open_test() {
-     return this.TESTS.filter(test => test.status=='OPEN');
-     },
     close_test() {
-     return this.TESTS.filter(test => test.status=='CLOSE');
+     return this.TESTS.filter(test => test.status=='CLOSED');
      },
   },
 

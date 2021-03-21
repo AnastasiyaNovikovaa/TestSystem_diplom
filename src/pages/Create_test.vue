@@ -11,29 +11,38 @@
       @ClosePopup_publish="ClosePopup_publish"
     />
 
+
+   
     <div class="header-div">
     <p class="heading block_head">Создание теста</p>
     <div  class="button_eye"></div>
     <div  @click="ShowPopup" class="button_setting"></div>
     
-    <div class="button_create_test">
-      <button type="button"  class="button create_test" @click="ShowPopup_publish">Создать тест</button>
+    <!--<div class="button_create_test">
+      <button type="submit"  class="button create_test" @click="ShowPopup_publish">Создать тест</button>
+    </div>
+  </div>-->
+
+  <div class="button_create_test">
+      <button type="submit"  class="button create_test" @click="POST_DATA_NEW_TEST">Создать тест</button>
     </div>
   </div>
-
+ 
   <div class="block_name_test">
-    <input type="text" placeholder="Название теста" name="name_test" class="name_test">
-    <input type="text" placeholder="Описание теста" name="description_test" class="description_test">
+    <input type="text" placeholder="Название теста" name="name_test" v-model="nameTest" class="name_test">
+    <input type="text" placeholder="Описание теста" name="description_test"  v-model="description" class="description_test">
+     <button @click="save_fist_data" class="">Сохранить</button>
   </div>
+  
 
   <div class="Buttons">
     <button @click="add_question" class="button_new_block"></button>
     <button class="button_load_tasks"></button>
   </div>
 
-  <Question_test v-for="(n,index) in items" :key="n.index" :row-data="n" v-on:delete-row="deleteThisRow(index)">
+  <Question_test v-for="(n,index) in items" :id_test="id_test" :key="n.index" :row-data="n" v-on:delete-row="deleteThisRow(index)">
   </Question_test>
-
+ 
   </div>
 </template>
 
@@ -43,8 +52,12 @@
 import Question_test from '../components/Question_test.vue'
 import Popup_setting_test from '../components/Popup_setting_test.vue'
 import Popup_publish_test from '../components/Popup_publish_test.vue'
+import axios from 'axios'
+//import Question_classes from '../js/Question.js'
+
 
 export default {
+  name: "postComponent",
   components: {
     Question_test,
     Popup_setting_test,
@@ -56,13 +69,54 @@ export default {
         isPopupVisible: false,
         isPopupVisible_publish: false,
         count: 1,
+        id_test: 0,
+        //nameTest: '',
+        descriptionTest: '',
+        timestamp: ""
       }
     },
-    methods: {
+
+    created() {
+                setInterval(this.getNow, 1000);
+            },
+
+  methods: {
+
+    POST_DATA_NEW_TEST(){
+        axios.post('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/tests', {
+        newTest: this.$store.getters.NEWTEST,
+        headers: {
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "X-Requested-With": "XMLHttpRequest",
+          "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+        }
+      })
+      //return instance.get(/tests/)
+      .then((response) => {
+                    console.log(response);
+                })
+},
+
+
+      postData(e){
+        console.warn(this.posts),
+        e.preventDefault();
+      },
+
       deleteThisRow: function(index) {
             this.items.splice(index, 1),
             console.log('УДАЛИЛИ'+index)
         },
+
+        //отправка название и описание теста на сервер + добавление нового блока вопроса
+       save_fist_data(){
+          /*this.id_test=Math.ceil(Math.random()*1000000);
+          this.$store.dispatch('ADD_FIRST_DATA',{name: this.nameTest, description: this.descriptionTest, id: this.id_test} );
+          console.log('нОВЫЙ ID'+this.id_test);*/
+          console.log(this.$store.getters.NEWTEST);
+       },
 
       add_question(){
       this.items.push(this.count),
@@ -83,9 +137,53 @@ export default {
 
      ClosePopup_publish(){
        this.isPopupVisible_publish = false
-       console.log('закрыли');
+     },
+
+     getNow: function() {
+                    const today = new Date();
+                    const date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
+                    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    const dateTime = date +' '+ time;
+                    this.timestamp = dateTime;
+                }
+  },
+
+//ОНО должно мне возвращать мой объект с новым тестом
+  computed: {
+
+    /*get_newtest: {
+         get(){
+          return this.$store.getters.NEWTEST;
+        },
+        set(){
+          this.id_test=Math.ceil(Math.random()*1000000);
+          this.$store.dispatch('ADD_FIRST_DATA',{name: this.nameTest, description:"", id: this.id_test, createdDate: this.timestamp} );
+          console.log('нОВЫЙ ID'+this.id_test);
+        }
+     },*/
+
+     nameTest: {
+      get(){
+        return this.$store.getters.NEWTEST.name;
+      },
+
+      set(value){
+        //передаю сразу id, это плохо, но пусть будет так пока
+        this.id_test=Math.ceil(Math.random()*1000000);
+        this.$store.dispatch('ADD_DATA_TEST', {name: value, id: this.id_test, createdDate: this.timestamp});
+      }
+     },
+
+     description: {
+      get(){
+        return this.$store.getters.NEWTEST.description;
+      },
+
+      set(value){
+        this.$store.dispatch('ADD_DATA_TEST', {description: value});
+      }
      }
-  }
+}
 }
 </script>
 

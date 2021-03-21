@@ -22,12 +22,13 @@
    <div class="plus"> <img src="../assets/plus.png"></div>
    <div>  <p class="Create">Создать тест</p></div>
 	</button>
-	<Catalog_cart/>
+	
+  <Catalog_cart/>
     </div>
 
      <div class="catalog close_test">
     <p class="Open_tests">Завершенные тесты</p>
-	<Catalog_cart/>
+	<Catalog_cart_close/>
     </div>
 
   </div>
@@ -35,11 +36,13 @@
 
 <script>
 import Catalog_cart from '../components/Catalog_cart.vue'
+import Catalog_cart_close from '../components/Catalog_cart_close.vue'
 
 export default {
   name: '',
   components: {
-   Catalog_cart
+   Catalog_cart,
+   Catalog_cart_close
   },
   data() {
       return {

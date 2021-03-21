@@ -6,7 +6,7 @@
 
     <div class="select_subject">
       <p class="test_select">Введите название предмета</p>
-       <input type="text" placeholder="Математический анализ" class="select_subject_button arrow_light">
+       <input v-model="subject" type="text" placeholder="Математический анализ" class="select_subject_button arrow_light">
       <!--<select v-model="select" class="select_subject_button arrow_light">
        <option v-for="(select,index) in selects" :key="index">{{ select}}</option>
       </select>-->
@@ -14,7 +14,7 @@
 
     <div class="select_category">
       <p class="test_select">Выберите категорию</p>
-      <input type="text" placeholder="Интегралы" class="select_category_button arrow_light">
+      <input v-model="category" type="text" placeholder="Интегралы" class="select_category_button arrow_light">
       <!--<select v-model="select_category" class="select_category_button arrow_light">
        <option v-for="(select_category,index_cat) in selects_category" :key="index_cat">{{ select_category}}</option>
       </select>-->
@@ -24,17 +24,17 @@
       <p class="test_select">Оценивание</p>
       <div class="block_rating_5">
       <p class="text_rating">“5” при % правильных ответов: ></p>
-      <input type="text" name="rating_5" placeholder="85" class="rating_5">
+      <input v-model.number="evalution_5" type="text" name="rating_5" placeholder="85" class="rating_5">
        </div>
 
        <div class="block_rating_4">
       <p class="text_rating">“4” при % правильных ответов: ></p>
-      <input type="text" name="rating_4" placeholder="70" class="rating_4">
+      <input v-model.number="evalution_4" type="text" name="rating_4" placeholder="70" class="rating_4">
        </div>
 
         <div class="block_rating_3">
       <p class="text_rating">“3” при % правильных ответов: ></p>
-      <input type="text" name="rating_3" placeholder="55" class="rating_3">
+      <input v-model.number="evalution_3" type="text" name="rating_3" placeholder="55" class="rating_3">
        </div>
 
        <div class="show_result">
@@ -55,27 +55,29 @@
     </div>
 
     <div v-if="selected_close=='D'" class="Date_deadline">
-      <label>Введите дату</label>
-  <input type="text" placeholder="XX.XX.XXXX" name="variant_answer" class="deadline">
+      <label>Введите дату и время</label>
+  <input v-model="DateDeadline" type="text" placeholder="XX.XX.XXXX XX:XX" name="variant_answer" class="deadline">
 
-  <label>Введите время</label>
-  <input type="text" placeholder="XX:XX" name="variant_answer" class="deadline">
+  <!--<label>Введите время</label>
+  <input type="text" placeholder="XX:XX" name="variant_answer" class="deadline">-->
   
  </div>
 
  <div v-if="selected=='B' && selected_close=='D'" class="Time_question">
       <label>Количество минут для одного вопроса</label>
-  <input type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  <input v-model.number="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
   
  </div>
 
  <div v-if="selected=='B'&& selected_close!='D'" class="Time_question_">
       <label>Количество минут для одного вопроса</label>
-  <input type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  <input v-model.number="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
   
  </div>
 
 <button class="save_setting">Сохранить</button>
+
+<p>{{timestamp}}</p>
 
   </div>
 </div>
@@ -94,11 +96,86 @@
         selected_close: 'C'
       }
     },
+
+
   methods: {
     ClosePopup_setting(){
       this.$emit('ClosePopup_setting');
      }
-  }
+  },
+
+  computed: {
+
+    //предмет
+    subject: {
+        set(value){
+          this.$store.dispatch('ADD_DATA_TEST',{subject: value} );
+        },
+        get(){
+          return this.$store.getters.subject;
+        }
+     },
+
+     //категория
+     category: {
+        set(value){
+          this.$store.dispatch('ADD_DATA_TEST',{category: value});
+        },
+        get(){
+          return this.$store.getters.category;
+        }
+     },
+
+     evalution_5: {
+        set(value){
+          this.$store.dispatch('ADD_EVALUATION_TEST', {five: value});
+        },
+        get(){
+  
+          return this.$store.getters.evaluation.five;
+        }
+     },
+
+     evalution_4: {
+        set(value){
+          this.$store.dispatch('ADD_EVALUATION_TEST', {four: value} );
+        },
+        get(){
+
+          return this.$store.getters.evaluation.four;
+        }
+     },
+
+     evalution_3: {
+        set(value){
+          this.$store.dispatch('ADD_EVALUATION_TEST', {three: value} );
+        },
+        get(){
+
+          return this.$store.getters.evaluation.three;
+        }
+     },
+
+
+     //время на один вопрос
+     timeQuestion: {
+        set(value){
+          this.$store.dispatch('ADD_DATA_TEST', {time_for_question: value} );
+        },
+        get(){
+          return this.$store.getters.time_for_question;
+        }
+     },
+     //дедлайн
+     DateDeadline: {
+        set(value){
+          this.$store.dispatch('ADD_DATA_TEST', {deadline: value} );
+        },
+        get(){
+          return this.$store.getters.deadline;
+        }
+     }
+}
  }
   
 </script>
