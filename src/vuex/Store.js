@@ -19,9 +19,9 @@ let store = new Vuex.Store ({
 			deadline: '',
 			subject: '',
 			evaluation: {
-  five: 85,
-  four: 65,
-  three: 50
+five: 85,
+four: 65,
+three: 50
 },
 			time_for_question: 0,
 			question: ''
@@ -42,14 +42,14 @@ let store = new Vuex.Store ({
 		},
 
 		//добавление названия и описания теста
-		ADD_FIRST_DATA(state, value) {
+		/*ADD_FIRST_DATA(state, value) {
 			console.log('ВИВ');
 		console.log(value);
         state.newTest.name = value.name;
         state.newTest.description = value.description;
         state.newTest.id = value.id_test;
         console.log(state.newTest.name);
-    },
+    },*/
 
     ADD_DATA_TEST(state, value) {
 		console.log('НОВАЯ МУТАЦИЯ');
@@ -96,9 +96,9 @@ let store = new Vuex.Store ({
 
 	actions: {
 
-		ADD_FIRST_DATA({commit}, value) {
+		/*ADD_FIRST_DATA({commit}, value) {
         commit('ADD_FIRST_DATA', value);
-		},
+		},*/
 
 		ADD_DATA_TEST({commit}, value) {
         commit('ADD_DATA_TEST', value);
