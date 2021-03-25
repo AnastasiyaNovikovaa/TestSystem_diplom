@@ -2,29 +2,9 @@
   <div class="popup_wrapper">
    <div class="popup_publish_test">
 
-    <Popup_succes_publiс_test
-      v-if="isPopupVisible_succes"
-      @ClosePopup_succes="ClosePopup_succes"
-    />
-
-    <h3 class="head_popup">Настройка публикации</h3>
-    <button @click="ClosePopup_publish" class="icon_close close_setting"></button>
-
-    <p class="head_publish">Данные для прохождения теста</p>
-    
-    <div class="id_test">
-      <p class="id">Идентификатор:</p>
-      <p class="id_area">4756 2847 2172</p>
-    </div>
-
-    <div class="password_test">
-       <p class="pass">Код доступа:</p>
-      <p class="pass_area">476 284</p>
-    </div>
-
-    <p class="message">Отправьте эти данные  своим студентам и они смогут пройти Ваш тест.</p>
-
-    <button @click="open_succes" class="publish_test">Опубликовать</button>
+    <p class="message_succes">Ваш тест успешно опубликован!</p>
+    <p class="message_succes2"> Студенты могут проходить ваш тест. Результаты будут отображены на странице вашего теста.</p>
+    <button @click="$router.push({name: 'tests'})" class="publish_test">Вернуться к тестам</button>
 
   </div>
 </div>
@@ -32,32 +12,15 @@
 
 <script>
 
-  import Popup_succes_publiс_test from '../components/Popup_succes_piblic_test.vue'
-
   export default {
-    components: {
-    Popup_succes_publiс_test,
-  },
+
     data() {
       return {
-        isPopupVisible_succes: false,
+        
       }
     },
-
   methods: {
-    ClosePopup_publish(){
-      this.$emit('ClosePopup_publish');
-     },
-
-      ClosePopup_succes(){
-      this.$emit('ClosePopup_succes');
-     },
-
-     open_succes() {
-
-      this.isPopupVisible_succes = true;
-      
-     }
+   
   }
  }
   
@@ -114,17 +77,30 @@
     padding-left: 10px;
   }
 
-  .head_publish{
+  .message_succes{
     font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 19px;
     color: #1B1D21;
     display: block;
-    clear: both;
-    float: left;
     margin-bottom: 30px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .message_succes2{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 30px;
+    color: #1B1D21;
+    display: block;
+    margin-bottom: 30px;
+     text-align: center;
+     padding-right: 50px;
+      padding-left: 50px;
   }
 
   .publish_test{

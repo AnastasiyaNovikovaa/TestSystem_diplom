@@ -27,6 +27,7 @@ class QuestionOneAnswer extends Question {
         this.answer[0] = answer
     }
 }
+
 class QuestionSeveralAnswer extends Question {
     constructor(obj) {
         super(obj)

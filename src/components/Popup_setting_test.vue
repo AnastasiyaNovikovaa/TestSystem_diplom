@@ -65,19 +65,18 @@
 
  <div v-if="selected=='B' && selected_close=='D'" class="Time_question">
       <label>Количество минут для одного вопроса</label>
-  <input v-model.number="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  <input v-model="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
   
  </div>
 
  <div v-if="selected=='B'&& selected_close!='D'" class="Time_question_">
       <label>Количество минут для одного вопроса</label>
-  <input v-model.number="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
+  <input v-model="timeQuestion" type="text" placeholder="Минуты" name="variant_answer" class="deadline">
   
  </div>
 
-<button class="save_setting">Сохранить</button>
+<button @click="ClosePopup_setting" class="save_setting">Сохранить</button>
 
-<p>{{timestamp}}</p>
 
   </div>
 </div>
@@ -160,10 +159,10 @@
      //время на один вопрос
      timeQuestion: {
         set(value){
-          this.$store.dispatch('ADD_DATA_TEST', {time_for_question: value} );
+          this.$store.dispatch('ADD_DATA_TEST', {questionResponseTime: value} );
         },
         get(){
-          return this.$store.getters.time_for_question;
+          return this.$store.getters.questionResponseTime;
         }
      },
      //дедлайн
@@ -191,10 +190,10 @@
 
  .Time_question {
   display: inline;
-  width: 250px;
+  width: 300px;
   float: left;
   position: relative;
-  top: -25%;
+  top: -12%;
    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -243,6 +242,11 @@ overflow-y: scroll; /* прокрутка по вертикали */
     color: white;
     float: right;
     margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  .save_setting:focus {
+    outline: red;
   }
 
   .radio>label {

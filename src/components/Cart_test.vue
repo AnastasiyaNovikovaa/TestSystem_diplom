@@ -4,7 +4,8 @@
   <p class="sub">Предмет</p>
   <p class="second-layer">{{test_data.subject}}</p>
   <p class="sub">Дедлайн</p>
-  <p class="second-layer">{{test_data.deadline}}</p>
+  <p  v-if="test_data.deadline!=null" class="second-layer">{{test_data.deadline}}</p>
+  <p v-else class="second-layer">Дедлайн не назначен</p>
   <p class="second-layer"></p>
   <!--<button><router-link
     :to="{name: 'test', params: { id: test_data.id} }"
@@ -20,6 +21,11 @@
 
 export default {
   name: '',
+  data() {
+      return {
+        teststring: '',
+      }
+    },
   props: {
     test_data: {
       type: Object,

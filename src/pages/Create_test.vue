@@ -31,7 +31,7 @@
   <div class="block_name_test">
     <input type="text" placeholder="Название теста" name="name_test" v-model="nameTest" class="name_test">
     <input type="text" placeholder="Описание теста" name="description_test"  v-model="description" class="description_test">
-     <button @click="save_fist_data" class="">Сохранить</button>
+     <!--<button @click="save_fist_data" class="">Сохранить</button>-->
   </div>
   
 
@@ -48,6 +48,7 @@
 
 
 <script>
+  
 
 import Question_test from '../components/Question_test.vue'
 import Popup_setting_test from '../components/Popup_setting_test.vue'
@@ -72,7 +73,7 @@ export default {
         id_test: 0,
         //nameTest: '',
         descriptionTest: '',
-        timestamp: ""
+        timestamp: ''
       }
     },
 
@@ -81,17 +82,27 @@ export default {
             },
 
   methods: {
+    getNow: function() {
+                    const today = new Date();
+                    const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+                    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    const dateTime = date +' '+ time;
+                    this.timestamp = dateTime;
+                },
 
     POST_DATA_NEW_TEST(){
+
         axios.post('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/tests', {
-        newTest: this.$store.getters.NEWTEST,
+         ... this.$store.dispatch('ADD_DATA_TEST',{createdDate: this.timestamp}),
+        ...this.$store.getters.NEWTEST,
         headers: {
           "Accept": "application/json",
           "Access-Control-Allow-Origin": "*",
           "X-Requested-With": "XMLHttpRequest",
           "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-        }
+        },
+         ...this.isPopupVisible_publish = true
       })
       //return instance.get(/tests/)
       .then((response) => {
@@ -120,7 +131,8 @@ export default {
 
       add_question(){
       this.items.push(this.count),
-      this.count=this.count+1
+      this.count=this.count+1,
+      this.$store.dispatch('CREATE_NEW_OBJECT_IN_CARD')
       },
 
       ShowPopup(){
@@ -138,14 +150,6 @@ export default {
      ClosePopup_publish(){
        this.isPopupVisible_publish = false
      },
-
-     getNow: function() {
-                    const today = new Date();
-                    const date = today.getDate()+'.'+(today.getMonth()+1)+'.'+today.getFullYear();
-                    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                    const dateTime = date +' '+ time;
-                    this.timestamp = dateTime;
-                }
   },
 
 //ОНО должно мне возвращать мой объект с новым тестом
@@ -170,7 +174,7 @@ export default {
       set(value){
         //передаю сразу id, это плохо, но пусть будет так пока
         this.id_test=Math.ceil(Math.random()*1000000);
-        this.$store.dispatch('ADD_DATA_TEST', {name: value, id: this.id_test, createdDate: this.timestamp});
+        this.$store.dispatch('ADD_DATA_TEST', {name: value, id: this.id_test});
       }
      },
 
@@ -239,6 +243,10 @@ export default {
   float: right;
   margin-right: 6%;
 }
+
+ .create_test:focus{
+  outline: red;
+ }
 
  .button_eye{
     background-image: url("../assets/eye.png");   
