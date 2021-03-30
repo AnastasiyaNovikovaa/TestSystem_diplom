@@ -11,11 +11,14 @@
       @ClosePopup_publish="ClosePopup_publish"
     />
 
-
+    <Preview
+      v-if="isPopupVisible_preview"
+      @ClosePopup_preview="ClosePopup_preview"
+    />
    
     <div class="header-div">
     <p class="heading block_head">Создание теста</p>
-    <div  class="button_eye"></div>
+    <div @click="ShowPopupPreview" class="button_eye"></div>
     <div  @click="ShowPopup" class="button_setting"></div>
     
     <!--<div class="button_create_test">
@@ -53,6 +56,7 @@
 import Question_test from '../components/Question_test.vue'
 import Popup_setting_test from '../components/Popup_setting_test.vue'
 import Popup_publish_test from '../components/Popup_publish_test.vue'
+import Preview from '../components/Preview.vue'
 import axios from 'axios'
 //import Question_classes from '../js/Question.js'
 
@@ -62,13 +66,15 @@ export default {
   components: {
     Question_test,
     Popup_setting_test,
-    Popup_publish_test
+    Popup_publish_test,
+    Preview
   },
  data() {
       return {
         items: [],
         isPopupVisible: false,
         isPopupVisible_publish: false,
+        isPopupVisible_preview: false,
         count: 1,
         id_test: 0,
         //nameTest: '',
@@ -139,6 +145,10 @@ export default {
       this.isPopupVisible = true
      },
 
+     ShowPopupPreview(){
+      this.isPopupVisible_preview = true
+     },
+
      ShowPopup_publish(){
       this.isPopupVisible_publish = true
      },
@@ -150,6 +160,10 @@ export default {
      ClosePopup_publish(){
        this.isPopupVisible_publish = false
      },
+
+     ClosePopup_preview(){
+      this.isPopupVisible_preview = false
+     }
   },
 
 //ОНО должно мне возвращать мой объект с новым тестом

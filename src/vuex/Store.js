@@ -24,33 +24,33 @@ let store = new Vuex.Store ({
 			},
 			questionResponseTime: '',
 			cards: [
-			{
-				answer: 'Этот элемент надо пропустить',
-				difficult: 1,
-				ordinal: 2,
-				question: 'Этот элемент надо пропустить',
-				subject: "Это надо убрать",
-				topic: "Это надо убрать"
-			},
-			],
-			polls: [
-			{
-				answer: 1,
-				correctAnswer: "21",
-				difficult: 2,
-				ordinal: 1,
-				subject: "Нужно избавиться от этого вопроса",
-				title: "Нужно избавиться от этого вопроса",
-				topic: "Нужно избавиться от этого вопроса",
-				questionResponseTime: "00:15:00",
-				variables: [
-				"20",
-				"21",
-				"22",
-				"23"
-				]
-			}
-			],
+  /*{
+answer: 'Этот элемент надо пропустить',
+ difficult: 1,
+  ordinal: 2,
+ question: 'Этот элемент надо пропустить',
+ subject: "Это надо убрать",
+ topic: "Это надо убрать"
+  },*/
+],
+	polls: [
+    /* {
+      answer: 1,
+      correctAnswer: "21",
+      difficult: 2,
+      ordinal: 1,
+      subject: "Нужно избавиться от этого вопроса",
+      title: "Нужно избавиться от этого вопроса",
+      topic: "Нужно избавиться от этого вопроса",
+      questionResponseTime: "00:15:00",
+      variables: [
+        "20",
+        "21",
+        "22",
+        "23"
+      ]
+    }*/
+  ],
 
 		}
 	},
@@ -63,53 +63,53 @@ let store = new Vuex.Store ({
 
     //мутация для добавления общих данные по тест(название, описание итд)
     ADD_DATA_TEST(state, value) {
-    	console.log('НОВАЯ МУТАЦИЯ');
-    	console.log(value);
-    	for(let key in value){
-    		for (let key2 in state.newTest){
+		console.log('НОВАЯ МУТАЦИЯ');
+		console.log(value);
+		for(let key in value){
+			for (let key2 in state.newTest){
 
-    			if (key==key2){
+				if (key==key2){
 
-    				state.newTest[key2]=value[key];
-    				console.log('Проверка');
-    				console.log(state.newTest[key2]);
-    				console.log(value[key]);
-    				console.log('Закончилась Проверка');
-    			} 
+					state.newTest[key2]=value[key];
+					console.log('Проверка');
+					console.log(state.newTest[key2]);
+					console.log(value[key]);
+					console.log('Закончилась Проверка');
+				} 
 
-    		}
-    	}
+			}
+		}
     },
 
     //мутация для добавления оценок
-    ADD_EVALUATION_TEST(state, value) {
-    	
-    	for(let key in value){
-    		for (let key2 in state.newTest.evaluation){
+     ADD_EVALUATION_TEST(state, value) {
+	
+		for(let key in value){
+			for (let key2 in state.newTest.evaluation){
 
-    			if (key==key2){
-    				state.newTest.evaluation[key2]=value[key];
-    			} 
+				if (key==key2){
+					state.newTest.evaluation[key2]=value[key];
+				} 
 
-    		}
-    	}
-    	console.log(state.NEWTEST);
+			}
+		}
+		console.log(state.NEWTEST);
     },
 
      //мутация для вопроса к текстовому вопросу
-     ADD_SIMPLE_TEST(state, value) {
-     	for(let key in value){
-     		
-     		console.log('Ниже массив cards до присваивания')
-     		console.log(state.newTest.cards);
-     		let lenght_cards=state.newTest.cards.length-1;
-     		state.newTest.cards[lenght_cards].question=value[key];
-     		
-     		console.log('Ниже ЗНАЧЕНИЕ question массива cards после присваивания');	
-     		console.log(state.newTest.cards[lenght_cards].question)
-     	}
+    ADD_SIMPLE_TEST(state, value) {
+			for(let key in value){
+			
+				console.log('Ниже массив cards до присваивания')
+				console.log(state.newTest.cards);
+				let lenght_cards=state.newTest.cards.length-1;
+				state.newTest.cards[lenght_cards].question=value[key];
+					
+					console.log('Ниже ЗНАЧЕНИЕ question массива cards после присваивания');	
+					console.log(state.newTest.cards[lenght_cards].question)
+				}
 
-     	console.log('НАЧИНАЕТСЯ УДАЛЕНИЕ из polls');
+				console.log('НАЧИНАЕТСЯ УДАЛЕНИЕ из polls');
 
 				//let i=state.newTest.cards.indexOf(n => n.difficult == 10);
 				console.log('массив polls');
@@ -120,33 +120,33 @@ let store = new Vuex.Store ({
 
 				console.log(state.newTest.polls);
 				console.log('ЗАКОНЧИЛОСЬ УДАЛЕНИЕ из polls');
-			},
+    },
 
     //мутация для ответа к текстовому вопросу
     ADD_SIMPLE_TEST_ANSWER(state, value) {
-    	for(let key in value){
-    		console.log('МУТАЦИЯ дЛЯ простого ответа');
-    		console.log(value);
-    		console.log('выше значение');
-    		let lenght_cards=state.newTest.cards.length-1;
-    		state.newTest.cards[lenght_cards].answer=value[key];
-    		console.log(state.newTest.cards[lenght_cards].answer);
-    	}
+    for(let key in value){
+		console.log('МУТАЦИЯ дЛЯ простого ответа');
+		console.log(value);
+		console.log('выше значение');
+		let lenght_cards=state.newTest.cards.length-1;
+		state.newTest.cards[lenght_cards].answer=value[key];
+		console.log(state.newTest.cards[lenght_cards].answer);
+		}
     },
 
      //мутация для вопроса к вопросу с одним ответом + хитроглупые действия для поддержания работы
-     ADD_ONE_ANSWER_TEST(state, value) {
-     	for(let key in value){
-     		
-     		console.log('Ниже массив polls до присваивания')
-     		console.log(state.newTest.polls);
-     		let lenght_polls=state.newTest.polls.length-1;
-     		state.newTest.polls[lenght_polls].title=value[key];
-     		
-     		console.log('Ниже ЗНАЧЕНИЕ question массива polls после присваивания');	
-     		console.log(state.newTest.polls[lenght_polls].title)
-     	}
-     	
+    ADD_ONE_ANSWER_TEST(state, value) {
+			for(let key in value){
+			
+				console.log('Ниже массив polls до присваивания')
+				console.log(state.newTest.polls);
+				let lenght_polls=state.newTest.polls.length-1;
+				state.newTest.polls[lenght_polls].title=value[key];
+					
+					console.log('Ниже ЗНАЧЕНИЕ question массива polls после присваивания');	
+					console.log(state.newTest.polls[lenght_polls].title)
+				}
+				
 				//мутация для удаления элемента массива cards, который создается вместе с этим вопросом
 
 				console.log('НАЧИНАЕТСЯ УДАЛЕНИЕ из cards');
@@ -161,79 +161,110 @@ let store = new Vuex.Store ({
 				console.log(state.newTest.cards);
 				console.log('ЗАКОНЧИЛОСЬ УДАЛЕНИЕ из cards');
 
-			},
+    },
 
-			
+    
      //мутация для ответов к вопросу с одним ответом
-     ADD_ONE_ANSWER_ANSWER_TEST(state, value) {
+    ADD_ONE_ANSWER_ANSWER_TEST(state, value) {
 
-     	let string_value='';
-     	let string_value_without='';
-     	
+    let string_value='';
+    let string_value_without='';
+ 
+			for(let key in value){
+				string_value=value[key];
+			}
 
-     	for(let key in value){
-     		string_value=value[key];
-     	}
+ console.log('это новаяч переменная');
+			string_value_without=string_value.substring(0, string_value.length-1);
+			console.log(string_value_without);
 
-     	console.log('это новаяч переменная');
-     	string_value_without=string_value.substring(0, string_value.length-1);
-     	console.log(string_value_without);
+				console.log('значение входящей строки')
+				console.log(string_value);
+				let lenght_polls=state.newTest.polls.length-1;
+				
+				let Index=state.newTest.polls[lenght_polls].variables.indexOf(
+					state.newTest.polls[lenght_polls].variables.find(str=> str==string_value_without));
 
-     	console.log('значение входящей строки')
-     	console.log(string_value);
-     	let lenght_polls=state.newTest.polls.length-1;
-     	
-     	let Index=state.newTest.polls[lenght_polls].variables.indexOf(
-     		state.newTest.polls[lenght_polls].variables.find(str=> str==string_value_without));
+				console.log('Полученный индекс')
+				console.log(Index);
 
-     	console.log('Полученный индекс')
-     	console.log(Index);
-
-     	state.newTest.polls[lenght_polls].variables[Index]=string_value;
-     	
-     	console.log('Ниже ЗНАЧЕНИЕ question массива polls после присваивания');	
-     	console.log(state.newTest.polls[lenght_polls])
-     	
-     	
-     },
+				state.newTest.polls[lenght_polls].variables[Index]=string_value;
+					
+					console.log('Ниже ЗНАЧЕНИЕ question массива polls после присваивания');	
+					console.log(state.newTest.polls[lenght_polls])
+				
+				
+    },
 
 
 
     //мутация для создания новых элементов массивов вопросов
     CREATE_NEW_OBJECT_IN_CARD(state) {
-    	console.log('Создаем новый объект cards');
-    	state.newTest.cards.push({answer: '.',
-    		difficult: 1,
-    		ordinal: 2,
-    		question: '.',
-    		subject: "Это надо убрать",
-    		topic: "Это надо убрать"});
-    	console.log(state.newTest.cards);
+    console.log('Создаем новый объект cards');
+    state.newTest.cards.push({answer: '.',
+ difficult: 1,
+ ordinal: 2,
+ question: '.',
+subject: "Это надо убрать",
+ topic: "Это надо убрать"});
+    console.log(state.newTest.cards);
 
-    	console.log('Создаем новый объект polls');
-    	state.newTest.polls.push({
-    		answer: 1,
-    		correctAnswer: "21",
-    		difficult: 1,
-    		ordinal: 1,
-    		subject: "Нужно избавиться от этого вопроса",
-    		title: ".",
-    		topic: "Нужно избавиться от этого вопроса",
-    		questionResponseTime: "00:15:00",
-    		variables: [
-    		"",
-    		"",
-    		"",
-    		""
-    		]}),
-    	console.log(state.newTest.polls);
+    console.log('Создаем новый объект polls');
+    state.newTest.polls.push({
+     answer: 1,
+      correctAnswer: "21",
+      difficult: 1,
+      ordinal: 1,
+      subject: "Нужно избавиться от этого вопроса",
+      title: ".",
+      topic: "Нужно избавиться от этого вопроса",
+      questionResponseTime: "00:15:00",
+      variables: [
+        "",
+        "",
+        "",
+        ""
+      ]}),
+    console.log(state.newTest.polls);
 
-    }
+    },
 
-},
+    ADD_ORDINAL_ANSWER(state, value){
+    console.log('получила порядок');
+    console.log(value);
+    let lenght_polls=state.newTest.polls.length-1;
+	state.newTest.polls[lenght_polls].answer=value;
+					
+	console.log(state.newTest.polls[lenght_polls]);
 
-actions: {
+    },
 
+    /*DeleteTest(state, value){
+    console.log('Удаляем такой тест');
+    console.log(value);
+
+     axios.delete('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/tests/' + value,
+     {
+     headers: {
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "X-Requested-With": "XMLHttpRequest",
+          "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+        }
+     });
+
+   
+    }*/
+
+	},
+
+	actions: {
+
+		//добавление порядка правильного ответа
+		ADD_ORDINAL_ANSWER({commit}){
+			commit('ADD_ORDINAL_ANSWER');
+		},
 
 		//создание новых элементов массивов по клику на +
 		CREATE_NEW_OBJECT_IN_CARD({commit}){
@@ -242,32 +273,32 @@ actions: {
 
 		//добавление общей информации по тесту(название, описание итд)
 		ADD_DATA_TEST({commit}, value) {
-			commit('ADD_DATA_TEST', value);
+        commit('ADD_DATA_TEST', value);
 		},
 
 		//добавление информации по оцениванию
 		ADD_EVALUATION_TEST({commit}, value) {
-			commit('ADD_EVALUATION_TEST', value);
+        commit('ADD_EVALUATION_TEST', value);
 		},
 
 		//добавление вопроса в текстовом вопросе
 		ADD_SIMPLE_TEST({commit}, value) {
-			commit('ADD_SIMPLE_TEST', value);
+        commit('ADD_SIMPLE_TEST', value);
 		},
 
 		//добавление ответа в текстовом вопросе
 		ADD_SIMPLE_TEST_ANSWER({commit}, value) {
-			commit('ADD_SIMPLE_TEST_ANSWER', value);
+        commit('ADD_SIMPLE_TEST_ANSWER', value);
 		},
 
 		//добавление вопроса в вопросе с несколькими ответами, но одним верным
 		ADD_ONE_ANSWER_TEST({commit}, value) {
-			commit('ADD_ONE_ANSWER_TEST', value);
+        commit('ADD_ONE_ANSWER_TEST', value);
 		},
 		
 		//добавление ответа в вопросе с несколькими ответами, но одним верным
 		ADD_ONE_ANSWER_ANSWER_TEST({commit}, value) {
-			commit('ADD_ONE_ANSWER_ANSWER_TEST', value);
+        commit('ADD_ONE_ANSWER_ANSWER_TEST', value);
 		},
 
 
@@ -298,6 +329,10 @@ actions: {
 
 	},
 	getters: {
+
+		radio_one_answer(state){
+			return state.newTest.polls[0].answer;
+		},
 
 		//возвращает все созданные тесты с сервера
 		TESTS(state) {

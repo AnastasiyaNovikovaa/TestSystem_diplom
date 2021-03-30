@@ -1,5 +1,8 @@
 <template>
   <div class="catalog-cart">
+    <button class="New_test" @click="$router.push({name: 'create_test'})">
+   <div class="plus"> <img src="../assets/plus.png"></div>
+   <div>  <p class="Create">Создать тест</p></div></button>
   <Cart_test
       v-for="test in open_test"
       :key="test.id"

@@ -55,6 +55,7 @@ border-radius: 12px;
 box-shadow: 0px 0px 18px rgba(128, 129, 145, 0.15);
 padding: 16px;
 margin-right: 32px;
+margin-bottom: 32px;
 position: relative;
 }
 

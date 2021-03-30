@@ -17,13 +17,15 @@
 </div>
 
     <div class="catalog catalog_test">
+
     <p class="Open_tests">Открытые тесты</p>
-    <button class="New_test" @click="$router.push({name: 'create_test'})">
+   
+    <!--<button class="New_test" @click="$router.push({name: 'create_test'})">
    <div class="plus"> <img src="../assets/plus.png"></div>
    <div>  <p class="Create">Создать тест</p></div>
-	</button>
+	</button>-->
 	
-  <Catalog_cart/>
+  <Catalog_cart_with_button/>
     </div>
 
      <div class="catalog close_test">
@@ -35,13 +37,13 @@
 </template>
 
 <script>
-import Catalog_cart from '../components/Catalog_cart.vue'
+import Catalog_cart_with_button from '../components/Catalog_cart_with_button.vue'
 import Catalog_cart_close from '../components/Catalog_cart_close.vue'
 
 export default {
   name: '',
   components: {
-   Catalog_cart,
+   Catalog_cart_with_button,
    Catalog_cart_close
   },
   data() {
