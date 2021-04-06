@@ -19,7 +19,9 @@
           <b-dropdown-item class="hover"> <router-link to="/" class="main_header">Главная</router-link></b-dropdown-item>
           <b-dropdown-item class="hover"> <router-link class="edit_profile" to="/edit_profile">Настройка профиля</router-link></b-dropdown-item>
          <b-dropdown-item> <hr></b-dropdown-item>
-          <b-dropdown-item class="hover"> <router-link to="/entrance">Выход</router-link></b-dropdown-item>
+
+          <b-dropdown-item  v-if="isLoggedIn" class="hover"> <button  @click="logout" class="button_out"><router-link to="/entrance">Выход</router-link></button></b-dropdown-item>
+
         </b-nav-item-dropdown>
       </b-navbar-nav>
   </b-navbar>
@@ -36,12 +38,33 @@ export default {
   name: '',
   props: {
     
-  }
+  },
+  computed : {
+      isLoggedIn : function(){ 
+        return this.$store.getters.isLoggedIn
+      }
+    },
+
+    methods: {
+      logout() {
+        console.log("проверяем метод клика"),
+        this.$store.dispatch('logout')
+        /*.then(() => {
+          this.$router.push('/entrance')
+        })*/
+      }
+    },
+
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+  .button_out{
+    all: unset;
+  }
 
   .edit_profile.router-link-exact-active{
     background-color: white;

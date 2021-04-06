@@ -81,6 +81,22 @@
 
 <!-- ЗАКОНЧИЛСЯ БЛОК ТЕКСТОВОГО ВОПРОСА -->
 
+<!--БЛОК ВОПРОСА-КАРТИНКИ -->
+
+ <div v-if="select=='Загрузка фото'" class="Several_from_list">
+  <!--Кнопка для загрузки фото-->
+      <p class="text_photo">Загрузить фото с вопросом</p> <br> <br>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+      
+      <button v-on:click="submitFile()" class="save_question">СОХРАНИТЬ</button>
+      
+  <!--Тут ответ на вопрос-картинки-->
+  <input v-model="simple_answer" type="text" placeholder="Введите правильный ответ" 
+  name="variant_answer" class="text_answer">
+ </div>
+
+<!-- ЗАКОНЧИЛСЯ БЛОК ВОПРОСА-КАРТИНКИ -->
+
   <div class="new_hr"><hr></div>
 
    <div class="ball_right_answer">
@@ -89,7 +105,7 @@
    </div>
 
    
-    <button class="save_question">СОХРАНИТЬ</button>
+    <!--<button class="save_question">СОХРАНИТЬ</button>-->
    <button class="delete_question" @click="$emit('delete-row')">Удалить</button>
   </div>
 </template>
@@ -98,7 +114,7 @@
 
   import Radio_button_new from '../components/Radio_button_new.vue'
   import Checkbox_new from '../components/Checkbox_new.vue'
-
+  import axios from 'axios'
   
   export default {
     name: "PostQuestion",
@@ -138,7 +154,7 @@
         items: [],
         count:1,
         picked_one_answer: '',
-        
+        file: ''
       }
     },
 
@@ -153,7 +169,29 @@
       this.arr_several.push({
          idOrder: Math.random().toFixed(2)
         });
-  }
+  },
+
+   submitFile(){
+            let formData = new FormData();
+            formData.append('file', this.file);
+            axios.post( '/single-file',
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(function(){
+          console.log('SUCCESS!!');
+        })
+        .catch(function(){
+          console.log('FAILURE!!');
+        });
+      },
+
+      handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+      }
 },
 
 
@@ -218,6 +256,10 @@
 
 <style>
 
+  #file{
+    margin-bottom: 30px;
+  }
+
   .delete_question{
     border: none;
     background: white;
@@ -227,6 +269,17 @@
   }
   .delete_question:focus{
     outline: red;
+  }
+
+  p.text_photo{
+    font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    color: #1B1D21;
+    float: left;
+    padding-top: 4px;
+    margin-bottom: 0px;
   }
 
   .text_right_answer{
@@ -259,6 +312,9 @@
     float: right;
     margin-right: 80px;
     margin-top: 20px;
+    position: absolute;
+    top: 66%;
+    right: 0%;
   }
 
   .new_hr{
@@ -394,6 +450,7 @@
   padding-bottom: 80px;
   padding-left: 50px;
   margin-bottom: 40px;
+  position: relative;
 }
 
 .variant_answer:focus{

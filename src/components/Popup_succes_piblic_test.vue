@@ -1,10 +1,10 @@
 <template>
   <div class="popup_wrapper">
    <div class="popup_publish_test">
-
-    <p class="message_succes">Ваш тест успешно опубликован!</p>
+     
+    <p class="message_succes">Поздравляем! Ваш тест успешно опубликован!</p>
     <p class="message_succes2"> Студенты могут проходить ваш тест. Результаты будут отображены на странице вашего теста.</p>
-    <button @click="$router.push({name: 'tests'})" class="publish_test">Вернуться к тестам</button>
+    <button @click="$router.push({name: 'tests'})" class="publish_test button_return_test">Вернуться к тестам</button>
 
   </div>
 </div>
@@ -27,6 +27,12 @@
 </script>
 
 <style>
+
+  .button_return_test{
+    position: absolute;
+    right: 40px;
+    bottom: 30px;
+  }
 
   .popup_publish_test{
     width: 668px;
@@ -88,6 +94,7 @@
     margin-bottom: 30px;
     margin-top: 30px;
     text-align: center;
+    padding-top: 40px;
   }
   .message_succes2{
     font-family: 'RobotoRegular', Helvetica, Arial, sans-serif;

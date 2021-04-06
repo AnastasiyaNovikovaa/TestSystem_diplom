@@ -16,7 +16,8 @@
                   <b-form-input @blur="$v.formReg.email.$touch()"
                      :class="status($v.formReg.email)"
                      v-model.trim="formReg.email" id="email" 
-                  type="email" placeholder="Ваш email"></b-form-input>
+                  type="email" placeholder="Ваш email">
+                  </b-form-input>
 
                   <div class="invalid-feedback" v-if="!$v.formReg.email.required">{{ reqText }}</div>
               <div class="invalid-feedback" v-if="!$v.formReg.email.email">Пожалуйста введите Email адрес</div>
@@ -103,6 +104,18 @@ export default {
   methods: {
     register_user() {
       console.log("Пользователь зарегистрирован");
+
+      //поправить
+      let data = {
+          name: 'Костя',
+          email: this.formReg.email,
+          password: this.formReg.password,
+         
+        };
+
+        this.$store.dispatch('register', data)
+       .then(() => this.$router.push({name: 'entrance'}))
+       .catch(err => console.log(err))
 
         this.reset()
     },

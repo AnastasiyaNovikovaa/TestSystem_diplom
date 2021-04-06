@@ -7,6 +7,13 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store ({
 	state: {
+
+		//ПОЛЯ для аутентификации
+		status: '',
+token: localStorage.getItem('token') || '',
+    user : {},
+
+    //тест
 		tests: [],
 		//структура нового теста. !Еще нужен создатель!
 		newTest: {
@@ -239,27 +246,75 @@ subject: "Это надо убрать",
 
     },
 
-    /*DeleteTest(state, value){
-    console.log('Удаляем такой тест');
-    console.log(value);
+    auth_request(state){
+    state.status = 'loading'
+    },
 
-     axios.delete('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/tests/' + value,
-     {
-     headers: {
-          "Accept": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "X-Requested-With": "XMLHttpRequest",
-          "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-        }
-     });
+  auth_success(state, token, user){
+    state.status = 'success'
+    state.token = token
+    state.user = user
+  },
+  auth_error(state){
+    state.status = 'error'
+  },
+  logout(state){
+    state.status = ''
+    state.token = ''
+     console.log('мы вышли')
 
-   
-    }*/
+  },
 
 	},
 
 	actions: {
+
+		//авторизация пользователя
+		enter_user({commit}, user){
+    return new Promise((resolve, reject) => {
+    console.log("Вы вошли в систему"),
+      commit('auth_request')
+      axios({url: 'http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/auth/login', data: user, method: 'POST' })
+      .then(resp => {
+      const token = resp.data.token
+      const user = resp.data.user
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common['Authorization'] = token
+      commit('auth_success', token, user)
+      axios({url: 'http://testing-system-ru.eu-west-2.elasticbeanstalk.com/test', data: token, method: 'GET' })
+      resolve(resp)
+      })
+      .catch(err => {
+      commit('auth_error')
+      localStorage.removeItem('token')
+      reject(err)
+      })
+    })
+  },
+
+ //регистрация пользователя
+  register({commit}, user){
+  return new Promise((resolve, reject) => {
+  //console.log("пытаюсь регистрироваться"),
+    commit('auth_request')
+    axios({url: 'http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/register', data: user, method: 'POST' })
+    .catch(err => {
+      commit('auth_error', err)
+      reject(err)
+    })
+  })
+ },
+
+ //выход из системы
+ logout({commit}){
+  return new Promise((resolve) => {
+  console.log("акшен для выхода из системы")
+    commit('logout')
+    localStorage.removeItem('token')
+    delete axios.defaults.headers.common['Authorization']
+    resolve()
+  })
+ },
 
 		//добавление порядка правильного ответа
 		ADD_ORDINAL_ANSWER({commit}){
@@ -329,6 +384,10 @@ subject: "Это надо убрать",
 
 	},
 	getters: {
+
+		//геттеры для аутентификации 
+		isLoggedIn: state => !!state.token,
+  authStatus: state => state.status,
 
 		radio_one_answer(state){
 			return state.newTest.polls[0].answer;

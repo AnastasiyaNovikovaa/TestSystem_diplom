@@ -61,7 +61,7 @@
           
           <p class="password" @click="ShowPopup">Забыли пароль?</p>
 
-          <button :disabled="disabledEnter" type="submit" class="button button_enter" @click="$router.push({name: 'home'})">ВОЙТИ</button>
+          <button :disabled="disabledEnter" type="submit" class="button button_enter">ВОЙТИ</button>
         </form>
          
       
@@ -110,6 +110,14 @@ export default {
     methods: {
     enter_user() {
       console.log("Пользователь вошел");
+
+      let email = this.formReg.email;
+        let password = this.formReg.password;
+
+        //вот тут поправить
+        this.$store.dispatch('enter_user', { email, password })
+       .then(() => this.$router.push({name: 'home'}))
+       .catch(err => console.log(err));
 
         this.reset()
     },
