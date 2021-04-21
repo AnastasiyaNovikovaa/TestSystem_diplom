@@ -113,7 +113,9 @@ export default {
 
       let email = this.formReg.email;
         let password = this.formReg.password;
-
+        this.$store.dispatch('ADD_email_user', email);
+         this.$store.dispatch('ADD_password_user', password);
+         
         //вот тут поправить
         this.$store.dispatch('enter_user', { email, password })
        .then(() => this.$router.push({name: 'home'}))

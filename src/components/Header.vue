@@ -14,7 +14,7 @@
           <!-- Using 'button-content' slot -->
           <template #button-content>
             <img src="../assets/ava_prof.png" class="photoava">
-            <div class="name">Гончаров С.П.</div>
+            <div class="name">Гончаров С.Н.</div>
           </template>
           <b-dropdown-item class="hover"> <router-link to="/" class="main_header">Главная</router-link></b-dropdown-item>
           <b-dropdown-item class="hover"> <router-link class="edit_profile" to="/edit_profile">Настройка профиля</router-link></b-dropdown-item>
@@ -39,6 +39,12 @@ export default {
   props: {
     
   },
+
+  data() {
+    return{
+    }
+  },
+
   computed : {
       isLoggedIn : function(){ 
         return this.$store.getters.isLoggedIn

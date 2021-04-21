@@ -86,12 +86,18 @@
  <div v-if="select=='Загрузка фото'" class="Several_from_list">
   <!--Кнопка для загрузки фото-->
       <p class="text_photo">Загрузить фото с вопросом</p> <br> <br>
-        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+
+      <div v-if="image">
+      <img :src="image" />
+      <button @click="removeImage">Remove image</button>
+    </div>
+
+        <input type="file" id="file" ref="file" @change="handleFileUpload"/>
       
       <button v-on:click="submitFile()" class="save_question">СОХРАНИТЬ</button>
       
   <!--Тут ответ на вопрос-картинки-->
-  <input v-model="simple_answer" type="text" placeholder="Введите правильный ответ" 
+  <input v-model="file_answer" type="text" placeholder="Введите правильный ответ" 
   name="variant_answer" class="text_answer">
  </div>
 
@@ -106,7 +112,7 @@
 
    
     <!--<button class="save_question">СОХРАНИТЬ</button>-->
-   <button class="delete_question" @click="$emit('delete-row')">Удалить</button>
+   <!--<button class="delete_question" @click="$emit('delete-row')">Удалить</button>-->
   </div>
 </template>
 
@@ -154,7 +160,8 @@
         items: [],
         count:1,
         picked_one_answer: '',
-        file: ''
+        file: '',
+        image: ''
       }
     },
 
@@ -173,29 +180,78 @@
 
    submitFile(){
             let formData = new FormData();
+            
             formData.append('file', this.file);
-            axios.post( '/single-file',
-                formData,
-                {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-              }
-            ).then(function(){
-          console.log('SUCCESS!!');
-        })
-        .catch(function(){
+            console.log("файл, который загружаю");
+            console.log(this.file);
+            console.log([formData]);
+
+            //просто проверяю содержимое
+            for(var pair of formData.entries()) {
+        console.log(pair[0]+ ', '+ pair[1]); 
+      }
+
+
+         axios.post('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/files', {
+         ...this.file,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "enctype": "multipart/form-data",
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "X-Requested-With": "XMLHttpRequest",
+          "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+        },
+  
+      })
+      .then((response) => {
+                    console.log(response);
+                })
+      .catch(function(){
           console.log('FAILURE!!');
-        });
-      },
+      })
+    },
 
       handleFileUpload(){
         this.file = this.$refs.file.files[0];
-      }
+        /*var files = e.target.files || e.dataTransfer.files;
+        if (!files.length)
+        return;
+        this.createImage(files[0]);
+        console.log("отправила ли я файл?")
+         this.$store.dispatch('ADD_FILE_QUESTION',{question: files} );*/
+      },
+
+      createImage(file) {
+      
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        //var image = new Image();
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    removeImage() {
+      this.image = '';
+    }
 },
 
 
  computed: {
+
+    //Ответ на вопрос-картинку
+    file_answer: {
+      set(value){
+          this.$store.commit('ADD_FILE_ANSWER', value);
+        },
+        get(){
+          return this.$store.getters.file_answerr;
+        }
+    },
 
 
     //номер выбранного ответа

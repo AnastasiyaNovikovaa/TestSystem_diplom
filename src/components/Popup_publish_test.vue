@@ -47,6 +47,7 @@
 
       <p class="mail_p">Электронная почта</p>
      <div><input v-model="email" type="email" name="email" placeholder="Кому" class="email"></div>
+     <p>{{email}}</p>
      <div><input v-model="message" type="text" name="message" placeholder="Добавьте сообщение" class="message_input"></div>
 
      <button @click="sent_id" class="publish_test">Отправить</button>
@@ -98,10 +99,12 @@
     },
 
     sent_id(){
-      var em=this.email;
+      var array_emails=this.email.split(',');
       var mes=this.message;
+
+      for (let i = 0; i < array_emails.length; i++) { 
       axios.post('http://testing-system-ru.eu-west-2.elasticbeanstalk.com/api/v1/tests/' + this.new_test().id +'/publish', {
-        email: em,
+        email: array_emails[i],
         message: mes,
         headers: {
           "Accept": "application/json",
@@ -110,7 +113,9 @@
           "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values,Authorization"
         }
-      }),
+      })
+    }
+
       this.isPopupVisible_succes = true;
     },
 
@@ -342,7 +347,7 @@ div.second_block{
     line-height: 23px;
     color: #1B1D21;
     float: left;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .close_setting{

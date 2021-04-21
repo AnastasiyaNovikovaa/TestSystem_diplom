@@ -11,7 +11,20 @@ let store = new Vuex.Store ({
 		//ПОЛЯ для аутентификации
 		status: '',
 token: localStorage.getItem('token') || '',
-    user : {},
+   
+    user: {
+    birthDate: '',
+  email: "",
+  firstname: "",
+  location: "",
+  nickName: "",
+  patronymic: "",
+  surname: "",
+  telegramId: 0,
+  telephoneNumber: '',
+  workPlace: "",
+  password: ''
+    },
 
     //тест
 		tests: [],
@@ -59,10 +72,93 @@ answer: 'Этот элемент надо пропустить',
     }*/
   ],
 
+  file_question: [
+
+  ]
+
 		}
 	},
 
 	mutations: {
+
+		//мутация для добавления имени пользователя
+		ADD_name_user(state, value) {
+		console.log('Фамилия пользователя');
+		console.log(value);
+		state.user.firstname=value;
+		console.log('Фамилия пользователя');
+		console.log(state.user.firstname);		
+    },
+
+    ADD_surname_user(state, value) {
+		console.log('Имя пользователя');
+		console.log(value);
+		state.user.surname=value;
+		console.log('Имя пользователя');
+		console.log(state.user.surname);		
+    },
+
+    ADD_patronymic_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.patronymic=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.patronymic);		
+    },
+
+    ADD_email_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.email=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.email);		
+    },
+
+    ADD_telephoneNumber_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.telephoneNumber=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.telephoneNumber);		
+    },
+
+     ADD_nickName_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.nickName=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.nickName);		
+    },
+
+    ADD_workPlace_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.workPlace=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.workPlace);		
+    },
+
+    ADD_location_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.location=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.location);		
+    },
+
+    ADD_birthDate_user(state, value) {
+		console.log('оТЧЕТСТВО пользователя');
+		console.log(value);
+		state.user.birthDate=value;
+		console.log('ОТЧЕСТВО пользователя');
+		console.log(state.user.birthDate);		
+    },
+
+    ADD_password_user(state, value) {
+		console.log('паролик пользователя');
+		console.log(value);
+		state.user.password=value;		
+    },
 
 		SET_TESTS_TO_STATE: (state, tests) => {
 			state.tests = tests;
@@ -234,6 +330,12 @@ subject: "Это надо убрать",
       ]}),
     console.log(state.newTest.polls);
 
+    console.log('Создаем новый объект file_question');
+    state.newTest.file_question.push({
+     answer: 1,
+     question: ".",
+     });
+
     },
 
     ADD_ORDINAL_ANSWER(state, value){
@@ -250,11 +352,12 @@ subject: "Это надо убрать",
     state.status = 'loading'
     },
 
-  auth_success(state, token, user){
+  auth_success(state, token){
     state.status = 'success'
     state.token = token
-    state.user = user
+
   },
+
   auth_error(state){
     state.status = 'error'
   },
@@ -264,6 +367,29 @@ subject: "Это надо убрать",
      console.log('мы вышли')
 
   },
+
+  ADD_FILE_QUESTION(state, value){
+  console.log('получила файл');
+    console.log(value);
+	
+	console.log('Ниже массив  file_question до присваивания')
+				console.log(state.newTest.file_question);
+				let lenght_file_question=state.newTest.file_question.length-1;
+				state.newTest.file_question[lenght_file_question].question=value;
+					
+					console.log('Ниже ЗНАЧЕНИЕ question массива file_question после присваивания');	
+					console.log(state.newTest.file_question[lenght_file_question].question)
+
+  },
+
+  ADD_FILE_ANSWER(state, value){
+  console.log('получила ответ на вопрос');
+    console.log(value);
+				let lenght_file_question=state.newTest.file_question.length-1;
+				state.newTest.file_question[lenght_file_question].answer=value;
+					console.log('Ниже ЗНАЧЕНИЕ answer массива file_question после присваивания');	
+					console.log(state.newTest.file_question[lenght_file_question].answer);
+  }
 
 	},
 
@@ -278,6 +404,8 @@ subject: "Это надо убрать",
       .then(resp => {
       const token = resp.data.token
       const user = resp.data.user
+     
+
       localStorage.setItem('token', token)
       axios.defaults.headers.common['Authorization'] = token
       commit('auth_success', token, user)
@@ -356,6 +484,58 @@ subject: "Это надо убрать",
         commit('ADD_ONE_ANSWER_ANSWER_TEST', value);
 		},
 
+		//добавление вопроса в вопросе-картинке
+		ADD_FILE_QUESTION({commit}, value) {
+        commit('ADD_FILE_QUESTION', value);
+		},
+		
+		//добавление ответа в вопросе-картинке
+		ADD_FILE_ANSWER({commit}, value) {
+        commit('ADD_FILE_ANSWER', value);
+		},
+
+		//добавление имени пользователя
+		ADD_name_user({commit}, value) {
+        commit('ADD_name_user', value);
+		},
+
+		ADD_surname_user({commit}, value) {
+        commit('ADD_surname_user', value);
+		},
+
+		ADD_patronymic_user({commit}, value) {
+        commit('ADD_patronymic_user', value);
+		},
+
+		//почта пользователя
+		ADD_email_user({commit}, value) {
+        commit('ADD_email_user', value);
+		},
+
+		ADD_password_user({commit}, value) {
+        commit('ADD_password_user', value);
+		},
+
+		ADD_telephoneNumber_user({commit}, value) {
+        commit('ADD_telephoneNumber_user', value);
+		},
+
+		ADD_nickName_user({commit}, value) {
+        commit('ADD_nickName_user', value);
+		},
+
+		ADD_workPlace_user({commit}, value) {
+        commit('ADD_workPlace_user', value);
+		},
+
+		ADD_location_user({commit}, value) {
+        commit('ADD_location_user', value);
+		},
+
+		ADD_birthDate_user({commit}, value) {
+        commit('ADD_birthDate_user', value);
+		},
+
 
 		//получение информации о всех тестах
 		GET_TEST_FROM_API({commit}) {
@@ -384,6 +564,48 @@ subject: "Это надо убрать",
 
 	},
 	getters: {
+
+		get_email(state){
+			return state.user.email;
+		},
+
+		workPlace(state){
+			return state.user.workPlace;
+		},
+
+		location(state){
+			return state.user.location;
+		},
+
+		birthDate(state){
+			return state.user.birthDate;
+		},
+
+		telephoneNumber(state){
+			return state.user.telephoneNumber;
+		},
+
+		nickName(state){
+			return state.user.nickName;
+		},
+
+		//геттер для имени пользователя
+		firstname(state){
+			return state.user.firstname;
+		},
+
+		surname(state){
+			return state.user.surname;
+		},
+
+		patronymic(state){
+			return state.user.patronymic;
+		},
+
+		//геттер для ответ для вопроса-картинки
+		file_answer(state){
+			return state.newTest.file_question[0].answer;
+		},
 
 		//геттеры для аутентификации 
 		isLoggedIn: state => !!state.token,
